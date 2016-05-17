@@ -12,6 +12,8 @@ public class Network {
     private Map<Position, Node> nodes = new HashMap<Position, Node>();
     private List<UUID> eventIDList = new ArrayList<UUID>();
     private int height, width, agentProb, eventProb, numberOfTicks;
+    public static final int AGENTMAXSTEPS = 50;
+    public static final int REQUESTMAXSTEPS = 45;
 
     private final Random random = new Random();
 

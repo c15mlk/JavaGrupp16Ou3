@@ -3,7 +3,7 @@ package com.javagrupp16.ou3.entities;
 import com.javagrupp16.ou3.Event;
 import com.javagrupp16.ou3.Network;
 import com.javagrupp16.ou3.Position;
-import javafx.geometry.Pos;
+
 
 import java.util.*;
 
@@ -12,12 +12,11 @@ import java.util.*;
  **/
 public class Node extends Entity {
 
-    private Position position;
     private List<Node> neighbours= new ArrayList<>();
     private Map<UUID,Event> eventsMap = new HashMap<>();
     private Map<UUID,Position> routingMap = new HashMap<>();
     private List<Moveable> moveableList = new ArrayList<>();
-    private Queue<Runnable> runnableQue = new ArrayDeque<>();
+    private Deque<Runnable> runnableQue = new ArrayDeque<>();
 
     public Node(Network network, Position position){
 
@@ -25,13 +24,45 @@ public class Node extends Entity {
     }
 
     public void detectEvent(UUID uuid){
-
         Event event = new Event(uuid,getPosition(),network.getTime());
         eventsMap.put(uuid,event);
+        if(network.chanceOf(network.getAgentProb())) {
+            Agent agent = new Agent(network, getPosition(),Network.AGENTMAXSTEPS);
+            moveableList.add(agent);
+        }
     }
 
-    public void requestEvent(){
+    public void requestEvent(UUID uuid){
+        Request request = new Request(network,getPosition(),uuid,this,Network.REQUESTMAXSTEPS);
+        runnableQue.add(new Runnable(){
+            @Override
+            public void run(){
+                moveableList.add(request);
+            }
+        });
+    }
 
+    public void timeTick(){
+        for(Moveable moveable : moveableList) {
+            if (moveable.isComplete()) {
+                moveableList.remove(moveable);
+            } else {
+                moveable.move();
+            }
+        }
+        if (!runnableQue.isEmpty()){
+            runnableQue.pop().run();
+        }
+    }
+
+    public void receiveEvent(Request request){
+        runnableQue.add(new Runnable(){
+            @Override
+            public void run(){
+                System.out.println(request.getInfo().toString());
+            }
+        });
+        request.setComplete(true);
     }
 
 }

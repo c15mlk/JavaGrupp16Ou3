@@ -10,6 +10,7 @@ public class Agent extends Moveable {
 
     private int maxSteps;
 
+
     public Agent(Network network, Position position, int maxSteps){
         super(network, position);
         this.maxSteps = maxSteps;

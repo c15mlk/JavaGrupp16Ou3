@@ -38,4 +38,8 @@ public class Request extends Moveable {
     public void move() {
 
     }
+
+    public Event getInfo(){
+        return info;
+    }
 }
