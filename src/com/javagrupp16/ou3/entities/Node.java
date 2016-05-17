@@ -12,5 +12,4 @@ public class Node extends Entity {
         super(network, position);
     }
 
-
 }
