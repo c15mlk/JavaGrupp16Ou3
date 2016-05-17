@@ -12,13 +12,13 @@ public class Event{
 
     }
     public int getId(){
-
+    return id;
     }
     public int getTime(){
-
+    return time;
     }
     public Position getPosition(){
-
+    return position;
     }
 
 }
