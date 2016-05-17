@@ -1,11 +1,13 @@
 package com.javagrupp16.ou3;
 
+import com.javagrupp16.ou3.entities.Moveable;
+
 import java.util.UUID;
 
 /**
  * Created by Marcus on 2016-05-17.
  **/
-public class Event{
+public class Event extends Moveable{
 
     private int time;
     private UUID id;
