@@ -14,7 +14,7 @@ public class Event extends Moveable{
     private Position position;
 
     public Event(){
-        super();
+        super(network, position);
     }
 
     public UUID getId(){
