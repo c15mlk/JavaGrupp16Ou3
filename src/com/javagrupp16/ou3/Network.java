@@ -11,7 +11,7 @@ public class Network {
 
     private Map<Position, Node> nodes = new HashMap<Position, Node>();
     private List<UUID> eventIDList = new ArrayList<UUID>();
-    private int height, width, agentProb, eventProb, numberOfTicks;
+    private int height, width, agentProb, eventProb, numberOfTicks, counter;
     public static final int AGENTMAXSTEPS = 50;
     public static final int REQUESTMAXSTEPS = 45;
 
@@ -48,14 +48,24 @@ public class Network {
 
     public void timeTick(){
         for(Node n : nodes.values()) {
-            if(chanceOf(eventProb)){
+            if (chanceOf(eventProb)) {
                 UUID uuid = UUID.randomUUID();
                 eventIDList.add(uuid);
-                //n.detectEvent(uuid)
+                n.detectEvent(uuid);
             }
-            //n.timeTick()
+            n.timeTick();
         }
 
+        if(counter >= 400){
+            for(int i = 0 ; i < 4 ; i++){
+                int randomInt = random.nextInt(nodes.size());
+                Node randomNode = randomItem(new ArrayList<Node>(nodes.values()));
+                randomNode.requestEvent(randomItem(eventIDList));
+            }
+            counter = 0;
+        }
+        counter++;
+        numberOfTicks++;
     }
 
     public int getTime(){
@@ -65,5 +75,10 @@ public class Network {
     public boolean chanceOf(int procent){
         int rng = random.nextInt(100);
         return procent > rng;
+    }
+
+    private <T> T randomItem(List<T> list){
+        int randomInt = random.nextInt(list.size());
+        return list.get(randomInt);
     }
 }
