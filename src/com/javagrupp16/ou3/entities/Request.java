@@ -38,4 +38,9 @@ public class Request extends Moveable {
     public void move() {
 
     }
+
+    @Override
+    public boolean isComplete(){
+
+    }
 }
