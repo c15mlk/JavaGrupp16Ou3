@@ -70,7 +70,6 @@ public class Node extends Entity {
 
     public void addNeighbourAt(int xAdd, int yAdd){
         Position p = new Position(getPosition().getX() + xAdd, getPosition().getY() + yAdd);
-       // System.out.println("Hej: " + sdgetPosition().equals(p));
         if(network.hasNode(p)){
             neighbours.add(network.getNode(p));
         }

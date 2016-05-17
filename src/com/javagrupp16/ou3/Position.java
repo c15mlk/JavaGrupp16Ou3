@@ -31,12 +31,24 @@ public class Position {
         this.y = y;
     }
 
+    @Override
     public boolean equals(Object o){
         if(o instanceof Position) {
             Position p = (Position) o;
             return x == p.x && y == p.y;
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = x;
+        result = 31 * result + y;
+        return result;
+    }
+
+    public Position clone(){
+        return new Position(this.x, this.y);
     }
 
     @Override

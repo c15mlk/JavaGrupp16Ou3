@@ -10,7 +10,7 @@ public class NetworkTest {
     public static void main(String[] args){
         Network network = new Network(10,10,100,100);
 
-        for(int i = 0; i < 1000; i++){
+        for(int i = 0; i < 420; i++){
             network.timeTick();
         }
     }

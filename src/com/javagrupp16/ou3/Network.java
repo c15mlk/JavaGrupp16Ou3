@@ -41,10 +41,6 @@ public class Network {
             n.addNeighbourAt(10,-10);
             n.addNeighbourAt(-10,10);
             n.addNeighbourAt(-10,-10);
-
-            for(Node n2 : n.getNeighbours()){
-                System.out.println(n2.getPosition());
-            }
         }
     }
 
@@ -73,8 +69,7 @@ public class Network {
         }
 
         if(counter >= 400){
-            for(int i = 0 ; i < 4 ; i++){
-                int randomInt = random.nextInt(nodes.size());
+            for(int i = 0 ; i < 1 ; i++){
                 Node randomNode = randomItem(new ArrayList<Node>(nodes.values()));
                 randomNode.requestEvent(randomItem(eventIDList));
             }

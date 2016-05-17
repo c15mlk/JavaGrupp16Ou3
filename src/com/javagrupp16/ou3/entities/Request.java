@@ -61,20 +61,30 @@ public class Request extends Moveable {
             if (network.hasNode(getPosition())) {
                 Node targetNode = network.getNode(getPosition());
                 if (targetNode.routingMap.containsKey(eventUUID)) {
+                    System.out.println("Request " + requestID + " found path to event");
                     eventPosition = targetNode.routingMap.get(eventUUID);
                     moveTowards(eventPosition);
-                } else {
+                    System.out.println("Request " + requestID + " took a step to " + this.getPosition().toString());
+                    System.out.println("Request " + requestID + " goal is " + eventPosition);
+                } else if(getPosition().equals(targetNeighbour)) {
                     targetNeighbour = network.randomItem(targetNode.getNeighbours()).getPosition();
-                    System.out.println(targetNeighbour + " " + sourceNode.getPosition());
                     moveTowards(targetNeighbour);
-                    //System.out.println("Request " + requestID + " took a step to " + this.getPosition().toString());
+                    System.out.println("Request " + requestID + " took a step to " + this.getPosition().toString());
+                    System.out.println("Request " + requestID + " goal is " + targetNeighbour);
+                } else {
+                    moveTowards(targetNeighbour);
+                    System.out.println("Request " + requestID + " took a step to " + this.getPosition().toString());
+                    System.out.println("Request " + requestID + " goal is " + targetNeighbour);
                 }
             } else {
                 moveTowards(targetNeighbour);
                 System.out.println("Request " + requestID + " took a step to " + this.getPosition().toString());
+                System.out.println("Request " + requestID + " goal is " + targetNeighbour);
             }
         }else{
             moveTowards(eventPosition);
+            System.out.println("Request " + requestID + " took a step to " + this.getPosition().toString());
+            System.out.println("Request " + requestID + " goal is " + eventPosition);
         }
         if (network.hasNode(getPosition())) {
             Node targetNode = network.getNode(getPosition());
