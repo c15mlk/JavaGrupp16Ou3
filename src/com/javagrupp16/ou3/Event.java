@@ -14,6 +14,7 @@ public class Event extends Moveable{
     private Position position;
 
     public Event(){
+        super();
     }
 
     public UUID getId(){
@@ -28,4 +29,7 @@ public class Event extends Moveable{
     return position;
     }
 
+    @Override
+    public void move() {
+    }
 }
