@@ -13,11 +13,11 @@ import java.util.*;
 public class Node extends Entity {
 
     private Position position;
-    private List<Node> neighbours= new ArrayList<Node>();
-    private Map<UUID,Event> eventsMap = new HashMap<UUID,Event>();
-    private Map<UUID,Position> routingMap = new HashMap<UUID,Position>();
-    private List<Moveable> moveableList = new ArrayList<Moveable>();
-    private Queue<Runnable> runnableQue = new ArrayDeque<Runnable>();
+    private List<Node> neighbours= new ArrayList<>();
+    private Map<UUID,Event> eventsMap = new HashMap<>();
+    private Map<UUID,Position> routingMap = new HashMap<>();
+    private List<Moveable> moveableList = new ArrayList<>();
+    private Queue<Runnable> runnableQue = new ArrayDeque<>();
 
     public Node(Network network, Position position){
 
