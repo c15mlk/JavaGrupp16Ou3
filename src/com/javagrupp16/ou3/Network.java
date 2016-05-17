@@ -58,7 +58,7 @@ public class Network {
         if(counter >= 400){
             for(int i = 0 ; i < 4 ; i++){
                 int randomInt = random.nextInt(nodes.size());
-                Node randomNode = randomItem(new ArrayList<Node>(nodes.values()));
+                Node randomNode = randomItem(new ArrayList<>(nodes.values()));
                 randomNode.requestEvent(randomItem(eventIDList));
             }
             counter = 0;
