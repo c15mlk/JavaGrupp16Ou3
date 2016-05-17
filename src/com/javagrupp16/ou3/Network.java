@@ -6,7 +6,7 @@ import java.util.*;
 
 /**
  * Created by Marcus on 2016-05-17.
- */
+ **/
 public class Network {
 
     private Map<Position, Node> nodes = new HashMap<Position, Node>();
