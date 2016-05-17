@@ -30,6 +30,17 @@ public class Position {
     public void setY(int y){
         this.y = y;
     }
+
+    public Position addX(int x){
+        this.x += x;
+        return this;
+    }
+
+    public Position addY(int y){
+        this.y += y;
+        return this;
+    }
+
     public boolean equals(Object o){
         if(o instanceof Position) {
             return true;

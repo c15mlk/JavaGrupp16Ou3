@@ -17,8 +17,27 @@ public abstract class Moveable extends Entity {
 
     public abstract void move();
 
-    public void step(){
-        steps++;
+    public void moveTowards(Position position){
+        int xDiff = getPosition().getX() - position.getX();
+        int yDiff = getPosition().getY() - position.getY();
+
+        Position p = getPosition();
+
+        if(xDiff > 0){ //This position is more to the right
+            p = getPosition().addX(-1);
+        }else if(xDiff < 0){ //This position is more to the left
+            p = getPosition().addX(1);
+        }else if(yDiff > 0){ //This position is above
+            p = getPosition().addY(-1);
+        }else if(xDiff < 0){ //This position is below
+            p = getPosition().addY(1);
+        }
+
+        setPosition(p);
+    }
+
+    public void setSteps(int i){
+        this.steps = i;
     }
 
     public int getSteps(){

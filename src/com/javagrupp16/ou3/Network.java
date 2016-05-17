@@ -77,7 +77,7 @@ public class Network {
         return procent > rng;
     }
 
-    private <T> T randomItem(List<T> list){
+    public <T> T randomItem(List<T> list){
         int randomInt = random.nextInt(list.size());
         return list.get(randomInt);
     }
