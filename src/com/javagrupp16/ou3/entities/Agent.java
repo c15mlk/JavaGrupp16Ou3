@@ -5,7 +5,7 @@ import com.javagrupp16.ou3.Position;
 
 /**
  * Created by Marcus on 2016-05-17.
- */
+ **/
 public class Agent extends Moveable {
 
     private int maxSteps;

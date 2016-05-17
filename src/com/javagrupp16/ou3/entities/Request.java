@@ -9,7 +9,7 @@ import java.util.UUID;
 
 /**
  * Created by Marcus on 2016-05-17.
- */
+ **/
 public class Request extends Moveable {
 
     private Event info = null;
