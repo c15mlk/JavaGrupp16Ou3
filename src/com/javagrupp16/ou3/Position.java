@@ -19,6 +19,6 @@ public class Position {
         return this.y;
     }
     public boolean equals(Object o){
-        return false;
+        return true;
     }
 }
