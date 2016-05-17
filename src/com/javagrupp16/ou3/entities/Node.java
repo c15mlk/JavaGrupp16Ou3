@@ -18,10 +18,21 @@ public class Node extends Entity {
     private List<Moveable> moveableList = new ArrayList<>();
     private Deque<Runnable> runnableQue = new ArrayDeque<>();
 
+    /**
+     * Constructor for the class, which instances a Node.
+     * @param network a network which the Node is created in.
+     * @param position the position the Node is created at.
+     */
     public Node(Network network, Position position){
         super(network, position);
     }
 
+    /**
+     * Method that discovers an event and then saves it in a map of events.
+     * Afterwards it checks the chance that an agent is created, if it is supposed to
+     * it creates an agent and saves it in a list of moveables.
+     * @param uuid an UUID that holds a unique id.
+     */
     public void detectEvent(UUID uuid){
         Event event = new Event(uuid,getPosition(),network.getTime());
         eventsMap.put(uuid,event);
@@ -31,6 +42,11 @@ public class Node extends Entity {
         }
     }
 
+    /**
+     * Method that creates a new request for an event and adds the request
+     * to a list of moveables.
+     * @param uuid an UUID that holds a unique id.
+     */
     public void requestEvent(UUID uuid){
         Request request = new Request(network,getPosition(),uuid,this,Network.REQUESTMAXSTEPS);
         runnableQue.add(new Runnable(){
@@ -41,6 +57,9 @@ public class Node extends Entity {
         });
     }
 
+    /**
+     * Method that advance the time in the Node by one step
+     */
     public void timeTick(){
         for(Moveable moveable : moveableList) {
             if (moveable.isComplete()) {
@@ -54,6 +73,10 @@ public class Node extends Entity {
         }
     }
 
+    /**
+     *
+     * @param request
+     */
     public void receiveEvent(Request request){
         runnableQue.add(new Runnable(){
             @Override
