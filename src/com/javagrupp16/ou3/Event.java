@@ -9,7 +9,6 @@ public class Event{
     private Position position;
 
     public Event(){
-
     }
     public int getId(){
     return id;
