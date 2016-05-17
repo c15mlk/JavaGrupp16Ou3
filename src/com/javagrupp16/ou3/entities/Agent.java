@@ -8,12 +8,19 @@ import com.javagrupp16.ou3.Position;
  */
 public class Agent extends Moveable {
 
-    public Agent(Network network, Position position){
+    private int maxSteps;
+
+    public Agent(Network network, Position position, int maxSteps){
         super(network, position);
+        this.maxSteps = maxSteps;
     }
 
     @Override
     public void move() {
+
+    }
+
+    public void synchronizeNode(Node node){
 
     }
 }

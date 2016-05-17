@@ -9,6 +9,7 @@ import com.javagrupp16.ou3.Position;
 public abstract class Moveable extends Entity {
 
     private int steps;
+    private boolean complete = false;
 
     public Moveable(Network network, Position position){
         super(network, position);
@@ -22,6 +23,14 @@ public abstract class Moveable extends Entity {
 
     public int getSteps(){
         return steps;
+    }
+
+    public boolean isComplete(){
+        return complete;
+    }
+
+    public void setComplete(boolean b){
+        this.complete = b;
     }
 
 }
