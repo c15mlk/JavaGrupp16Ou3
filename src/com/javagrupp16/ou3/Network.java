@@ -13,14 +13,19 @@ public class Network {
     private List<UUID> eventIDList = new ArrayList<UUID>();
     private int height, width, agentProb, eventProb, numberOfTicks;
 
+    private final Random random = new Random();
+
     public Network(int height, int width, int agentProb, int eventProb){
         this.height = height;
         this.width = width;
         this.agentProb = agentProb;
         this.eventProb = eventProb;
+        int multiplier = 10;
         for(int x = 0 ; x < width ; x++){
             for(int y = 0 ; y < height ; y++){
-
+                Position p = new Position(x*10,y*10);
+                Node node = new Node(this, p);
+                nodes.put(p,node);
             }
         }
     }
@@ -35,10 +40,21 @@ public class Network {
         return null;
     }
 
-    public void timeTick(){
-        for(Node n : nodes.values()){
+    public int getAgentProb(){
+        return agentProb;
+    }
 
+    public void timeTick(){
+        for(Node n : nodes.values()) {
+            int rng = random.nextInt(100);
+            if (eventProb > rng) {
+                UUID uuid = UUID.randomUUID();
+                eventIDList.add(uuid);
+                //n.detectEvent(uuid)
+            }
+            //n.timeTick()
         }
+
     }
 
     public int getTime(){
