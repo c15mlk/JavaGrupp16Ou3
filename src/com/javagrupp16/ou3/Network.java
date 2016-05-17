@@ -9,8 +9,8 @@ import java.util.*;
  **/
 public class Network {
 
-    private Map<Position, Node> nodes = new HashMap<Position, Node>();
-    private List<UUID> eventIDList = new ArrayList<UUID>();
+    private Map<Position, Node> nodes = new HashMap<>();
+    private List<UUID> eventIDList = new ArrayList<>();
     private int height, width, agentProb, eventProb, numberOfTicks, counter;
     public static final int AGENTMAXSTEPS = 50;
     public static final int REQUESTMAXSTEPS = 45;
@@ -22,7 +22,6 @@ public class Network {
         this.width = width;
         this.agentProb = agentProb;
         this.eventProb = eventProb;
-        int multiplier = 10;
         for(int x = 0 ; x < width ; x++){
             for(int y = 0 ; y < height ; y++){
                 Position p = new Position(x*10,y*10);
