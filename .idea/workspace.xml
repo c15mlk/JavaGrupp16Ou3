@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="439bfa94-9f28-443b-ab92-f20eb0a41b9a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/javagrupp16/ou3/Event.java" afterPath="$PROJECT_DIR$/src/com/javagrupp16/ou3/Event.java" />
     </list>
     <ignored path="JavaGrupp16Ou3.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -38,8 +37,8 @@
       <file leaf-file-name="Event.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/javagrupp16/ou3/Event.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+            <state relative-caret-position="255">
+              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -462,7 +461,14 @@
       <option name="project" value="LOCAL" />
       <updated>1463476550661</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Event">
+      <created>1463476610097</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1463476610097</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -658,8 +664,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/javagrupp16/ou3/Event.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+        <state relative-caret-position="255">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding />
         </state>
       </provider>
