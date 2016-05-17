@@ -24,15 +24,16 @@ public abstract class Moveable extends Entity {
         Position p = getPosition();
 
         if(xDiff > 0){ //This position is more to the right
-            p = getPosition().addX(-1);
+            p.setX(p.getX() - 1);
         }else if(xDiff < 0){ //This position is more to the left
-            p = getPosition().addX(1);
+            p.setX(p.getX() + 1);
         }else if(yDiff > 0){ //This position is above
-            p = getPosition().addY(-1);
+            p.setY(p.getY() - 1);
         }else if(xDiff < 0){ //This position is below
-            p = getPosition().addY(1);
+            p.setY(p.getY() + 1);
         }
 
+        System.out.println(getPosition() == position);
         setPosition(p);
     }
 

@@ -12,11 +12,11 @@ import java.util.*;
  **/
 public class Node extends Entity {
 
-    private List<Node> neighbours= new ArrayList<>();
-    protected Map<UUID,Event> eventsMap = new HashMap<>();
-    protected Map<UUID,Position> routingMap = new HashMap<>();
-    private List<Moveable> moveableList = new ArrayList<>();
-    private Deque<Runnable> runnableQue = new ArrayDeque<>();
+    private List<Node> neighbours= new ArrayList<Node>();
+    protected Map<UUID,Event> eventsMap = new HashMap<UUID,Event>();
+    protected Map<UUID,Position> routingMap = new HashMap<UUID,Position>();
+    private List<Moveable> moveableList = new ArrayList<Moveable>();
+    private Deque<Runnable> runnableQue = new ArrayDeque<Runnable>();
 
     public Node(Network network, Position position){
         super(network, position);
@@ -66,5 +66,13 @@ public class Node extends Entity {
 
     public List<Node> getNeighbours(){
         return neighbours;
+    }
+
+    public void addNeighbourAt(int xAdd, int yAdd){
+        Position p = new Position(getPosition().getX() + xAdd, getPosition().getY() + yAdd);
+       // System.out.println("Hej: " + getPosition().equals(p));
+        if(network.hasNode(p)){
+            neighbours.add(network.getNode(p));
+        }
     }
 }

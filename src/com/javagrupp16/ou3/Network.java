@@ -2,6 +2,8 @@ package com.javagrupp16.ou3;
 
 import com.javagrupp16.ou3.entities.Node;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.*;
 
 /**
@@ -27,6 +29,21 @@ public class Network {
                 Position p = new Position(x*10,y*10);
                 Node node = new Node(this, p);
                 nodes.put(p,node);
+            }
+        }
+
+        for(Node n : nodes.values()){
+            n.addNeighbourAt(0,10);
+            n.addNeighbourAt(0,-10);
+            n.addNeighbourAt(10,0);
+            n.addNeighbourAt(-10,0);
+            n.addNeighbourAt(10,10);
+            n.addNeighbourAt(10,-10);
+            n.addNeighbourAt(-10,10);
+            n.addNeighbourAt(-10,-10);
+
+            for(Node n2 : n.getNeighbours()){
+                System.out.println(n2.getPosition());
             }
         }
     }
@@ -72,8 +89,8 @@ public class Network {
     }
 
     public boolean chanceOf(int procent){
-        int rng = random.nextInt(100);
-        return procent > rng;
+        int rng = random.nextInt(100 + 1);
+        return procent >= rng;
     }
 
     public <T> T randomItem(List<T> list){
