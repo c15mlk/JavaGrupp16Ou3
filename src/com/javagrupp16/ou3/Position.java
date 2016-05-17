@@ -5,7 +5,20 @@ package com.javagrupp16.ou3;
  */
 public class Position {
 
-    public Position(int x, int y){
+    private int x;
+    private int y;
 
+    public Position(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+    public int getX(){
+        return this.x;
+    }
+    public int getY(){
+        return this.y;
+    }
+    public boolean equals(Object o){
+        return false;
     }
 }
