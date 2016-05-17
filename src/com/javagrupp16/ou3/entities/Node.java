@@ -9,7 +9,7 @@ import java.util.*;
 
 /**
  * Created by Marcus on 2016-05-17.
- */
+ **/
 public class Node extends Entity {
 
     private Position position;
