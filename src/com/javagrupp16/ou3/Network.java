@@ -46,8 +46,7 @@ public class Network {
 
     public void timeTick(){
         for(Node n : nodes.values()) {
-            int rng = random.nextInt(100);
-            if (eventProb > rng) {
+            if(chanceOf(eventProb)){
                 UUID uuid = UUID.randomUUID();
                 eventIDList.add(uuid);
                 //n.detectEvent(uuid)
@@ -59,5 +58,10 @@ public class Network {
 
     public int getTime(){
         return numberOfTicks;
+    }
+
+    public boolean chanceOf(int procent){
+        int rng = random.nextInt(100);
+        return procent > rng;
     }
 }
