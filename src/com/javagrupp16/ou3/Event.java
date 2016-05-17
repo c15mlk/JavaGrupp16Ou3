@@ -13,7 +13,7 @@ public class Event extends Moveable{
     private UUID id;
     private Position position;
 
-    public Event(){
+    public Event(Network network, Position position){
         super(network, position);
     }
 
