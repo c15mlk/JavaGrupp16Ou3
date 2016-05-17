@@ -22,7 +22,6 @@ public class Network {
         this.width = width;
         this.agentProb = agentProb;
         this.eventProb = eventProb;
-        int multiplier = 10;
         for(int x = 0 ; x < width ; x++){
             for(int y = 0 ; y < height ; y++){
                 Position p = new Position(x*10,y*10);
