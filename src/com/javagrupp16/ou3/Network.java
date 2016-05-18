@@ -15,10 +15,10 @@ public class Network {
     private List<UUID> eventIDList = new ArrayList<>();
     private int height, width, numberOfTicks, counter;
     private double agentProb, eventProb;
-    public static final int AGENTMAXSTEPS = 50;
-    public static final int REQUESTMAXSTEPS = 45;
 
-    private final Random random = new Random();
+
+    public static final int AGENT_MAXSTEPS = 50;
+    public static final int REQUEST_MAXSTEPS = 45;
 
     public Network(int height, int width, double agentProb, double eventProb){
         this.height = height;
@@ -61,7 +61,7 @@ public class Network {
 
     public void timeTick(){
         for(Node n : nodes.values()) {
-            if (chanceOf(eventProb)) {
+            if (Randoms.chanceOf(eventProb)) {
                 UUID uuid = UUID.randomUUID();
                 eventIDList.add(uuid);
                 n.detectEvent(uuid);
@@ -70,10 +70,10 @@ public class Network {
         }
 
         if(counter >= 400){
-            for(int i = 0 ; i < 1 ; i++){ //TODO change 1 to 4
-                Node randomNode = randomItem(new ArrayList<Node>(nodes.values()));
+            for(int i = 0 ; i < 1 ; i++){ //TODO change 1 to 4 again
+                Node randomNode = Randoms.randomItem(new ArrayList<Node>(nodes.values()));
                 /*Prevents nodes that already have information on a event asking for information on that event*/
-                while(!randomNode.requestEvent(randomItem(eventIDList)));
+                while(!randomNode.requestEvent(Randoms.randomItem(eventIDList)));
             }
             counter = 0;
         }
@@ -85,18 +85,4 @@ public class Network {
         return numberOfTicks;
     }
 
-    /*Tar ett nummer mellan 0 till 10000
-     *10000 kan man tänka sig som 100% och 1 som 0.01%
-     *Gjorde det så eftersom testprogrammet behöver ha 0.01% chans per tidssteg
-     *double procent som man stoppar in gångras med 100 så att man ska skriva 0.01% om man vill ha det.
-     *Eftersom 0.01% = 1 i detta fall.*/
-    public boolean chanceOf(double procent){
-        int rng = random.nextInt(10000 + 1);
-        return (procent * 100) >= rng;
-    }
-
-    public <T> T randomItem(List<T> list){
-        int randomInt = random.nextInt(list.size());
-        return list.get(randomInt);
-    }
 }

@@ -18,7 +18,6 @@ public abstract class Moveable extends Entity {
     public abstract void move();
 
     public void moveTowards(Position position){
-        Position oldPos = getPosition().clone();
 
 
         /*Check which direction to go*/

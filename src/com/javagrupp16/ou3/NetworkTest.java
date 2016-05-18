@@ -13,5 +13,7 @@ public class NetworkTest {
         for(int i = 0; i < 440; i++){
             network.timeTick();
         }
+
     }
+
 }

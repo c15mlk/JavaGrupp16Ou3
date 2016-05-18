@@ -3,6 +3,7 @@ package com.javagrupp16.ou3.entities;
 import com.javagrupp16.ou3.Event;
 import com.javagrupp16.ou3.Network;
 import com.javagrupp16.ou3.Position;
+import com.javagrupp16.ou3.Randoms;
 
 
 import java.util.*;
@@ -26,8 +27,8 @@ public class Node extends Entity {
     public void detectEvent(UUID uuid){
         Event event = new Event(uuid,getPosition(),network.getTime());
         eventsMap.put(uuid,event);
-        if(network.chanceOf(network.getAgentProb())) {
-            Agent agent = new Agent(network, getPosition(),Network.AGENTMAXSTEPS);
+        if(Randoms.chanceOf(network.getAgentProb())) {
+            Agent agent = new Agent(network, getPosition(),Network.AGENT_MAXSTEPS);
             moveableList.add(agent);
         }
     }
@@ -36,7 +37,7 @@ public class Node extends Entity {
         if(eventsMap.containsKey(uuid)){
             return false;
         }
-        Request request = new Request(network,getPosition(),uuid,this,Network.REQUESTMAXSTEPS);
+        final Request request = new Request(network,getPosition(),uuid,this,Network.REQUEST_MAXSTEPS);
         runnableQue.add(new Runnable(){
             @Override
             public void run(){
@@ -59,7 +60,7 @@ public class Node extends Entity {
         }
     }
 
-    public void receiveEvent(Request request){
+    public void receiveEvent(final Request request){
         runnableQue.add(new Runnable(){
             @Override
             public void run(){

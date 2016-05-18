@@ -3,6 +3,7 @@ package com.javagrupp16.ou3.entities;
 import com.javagrupp16.ou3.Event;
 import com.javagrupp16.ou3.Network;
 import com.javagrupp16.ou3.Position;
+import com.javagrupp16.ou3.Randoms;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -58,7 +59,7 @@ public class Request extends Moveable {
          *Probably only called at the first move() call.*/
         if(targetNeighbour == null){
             stack.addFirst(getPosition());
-            this.targetNeighbour = network.randomItem(sourceNode.getNeighbours()).getPosition();
+            this.targetNeighbour = Randoms.randomItem(sourceNode.getNeighbours()).getPosition();
         }
 
         /*If we have info on the event
@@ -100,7 +101,7 @@ public class Request extends Moveable {
                         System.out.println("Request found location of event " + eventPosition.toString());
                     }
                 } else if(getPosition().equals(targetNeighbour)) {
-                    targetNeighbour = network.randomItem(targetNode.getNeighbours()).getPosition();
+                    targetNeighbour = Randoms.randomItem(targetNode.getNeighbours()).getPosition();
                     moveTowards(targetNeighbour);
                     if(DEBUG && debugTarget == this){
                         System.out.println("*****");
