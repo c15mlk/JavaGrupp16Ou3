@@ -18,10 +18,18 @@ public abstract class Moveable extends Entity {
     public abstract void move();
 
     public void moveTowards(Position position){
+        Position oldPos = getPosition().clone();
+
 
         /*Check which direction to go*/
         int xDiff = getPosition().getX() - position.getX();
         int yDiff = getPosition().getY() - position.getY();
+
+        /*If the distance is just 1 step just move to the position*/
+        if((xDiff == 1 && yDiff == 0) || (xDiff == 0 && yDiff == 1)) {
+            setPosition(position);
+            return;
+        }
 
         Position xPos = getPosition().clone();
         double xDist = Double.MAX_VALUE;
@@ -54,11 +62,12 @@ public abstract class Moveable extends Entity {
 
         /*Compare the distances and go to the closest position to the dest position*/
 
-        if(xDist > yDist){
+        if(xDist >= yDist){
             setPosition(yPos);
         }else{
             setPosition(xPos);
         }
+
     }
 
     private double distanceBetween(Position from, Position to){

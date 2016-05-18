@@ -8,9 +8,9 @@ import java.util.Random;
 public class NetworkTest {
 
     public static void main(String[] args){
-        Network network = new Network(10,10,100,100);
+        Network network = new Network(1,2,0,100);
 
-        for(int i = 0; i < 420; i++){
+        for(int i = 0; i < 440; i++){
             network.timeTick();
         }
     }
