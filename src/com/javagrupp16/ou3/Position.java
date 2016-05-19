@@ -31,20 +31,28 @@ public class Position {
         this.y = y;
     }
 
-    public Position addX(int x){
-        this.x += x;
-        return this;
-    }
-
-    public Position addY(int y){
-        this.y += y;
-        return this;
-    }
-
+    @Override
     public boolean equals(Object o){
         if(o instanceof Position) {
-            return true;
+            Position p = (Position) o;
+            return x == p.x && y == p.y;
         }
-        return true;
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = x;
+        result = 31 * result + y;
+        return result;
+    }
+
+    public Position clone(){
+        return new Position(this.x, this.y);
+    }
+
+    @Override
+    public String toString(){
+        return "x: " + x + " y:" + y;
     }
 }

@@ -30,4 +30,9 @@ public class Event {
     return position;
     }
 
+    @Override
+    public String toString(){
+        return "Time of Event: " + time + " Event: " + id.toString() + " Location: " + position.toString();
+    }
+
 }

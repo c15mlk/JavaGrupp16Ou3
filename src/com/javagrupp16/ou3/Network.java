@@ -2,6 +2,8 @@ package com.javagrupp16.ou3;
 
 import com.javagrupp16.ou3.entities.Node;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.*;
 
 /**
@@ -11,13 +13,14 @@ public class Network {
 
     private Map<Position, Node> nodes = new HashMap<>();
     private List<UUID> eventIDList = new ArrayList<>();
-    private int height, width, agentProb, eventProb, numberOfTicks, counter;
-    public static final int AGENTMAXSTEPS = 50;
-    public static final int REQUESTMAXSTEPS = 45;
+    private int height, width, numberOfTicks, counter;
+    private double agentProb, eventProb;
 
-    private final Random random = new Random();
 
-    public Network(int height, int width, int agentProb, int eventProb){
+    public static final int AGENT_MAXSTEPS = 50;
+    public static final int REQUEST_MAXSTEPS = 45;
+
+    public Network(int height, int width, double agentProb, double eventProb){
         this.height = height;
         this.width = width;
         this.agentProb = agentProb;
@@ -28,6 +31,17 @@ public class Network {
                 Node node = new Node(this, p);
                 nodes.put(p,node);
             }
+        }
+
+        for(Node n : nodes.values()){
+            n.addNeighbourAt(0,10);
+            n.addNeighbourAt(0,-10);
+            n.addNeighbourAt(10,0);
+            n.addNeighbourAt(-10,0);
+            n.addNeighbourAt(10,10);
+            n.addNeighbourAt(10,-10);
+            n.addNeighbourAt(-10,10);
+            n.addNeighbourAt(-10,-10);
         }
     }
 
@@ -41,13 +55,13 @@ public class Network {
         return null;
     }
 
-    public int getAgentProb(){
+    public double getAgentProb(){
         return agentProb;
     }
 
     public void timeTick(){
         for(Node n : nodes.values()) {
-            if (chanceOf(eventProb)) {
+            if (Randoms.chanceOf(eventProb)) {
                 UUID uuid = UUID.randomUUID();
                 eventIDList.add(uuid);
                 n.detectEvent(uuid);
@@ -56,10 +70,10 @@ public class Network {
         }
 
         if(counter >= 400){
-            for(int i = 0 ; i < 4 ; i++){
-                int randomInt = random.nextInt(nodes.size());
-                Node randomNode = randomItem(new ArrayList<>(nodes.values()));
-                randomNode.requestEvent(randomItem(eventIDList));
+            for(int i = 0 ; i < 1 ; i++){ //TODO change 1 to 4 again
+                Node randomNode = Randoms.randomItem(new ArrayList<Node>(nodes.values()));
+                /*Prevents nodes that already have information on a event asking for information on that event*/
+                while(!randomNode.requestEvent(Randoms.randomItem(eventIDList)));
             }
             counter = 0;
         }
@@ -71,13 +85,4 @@ public class Network {
         return numberOfTicks;
     }
 
-    public boolean chanceOf(int procent){
-        int rng = random.nextInt(100);
-        return procent > rng;
-    }
-
-    public <T> T randomItem(List<T> list){
-        int randomInt = random.nextInt(list.size());
-        return list.get(randomInt);
-    }
 }
