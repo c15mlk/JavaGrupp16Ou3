@@ -69,13 +69,13 @@ public class Network {
             n.timeTick();
         }
 
-        if(counter >= 400){
+        if(counter == 60){
             for(int i = 0 ; i < 1 ; i++){ //TODO change 1 to 4 again
                 Node randomNode = Randoms.randomItem(new ArrayList<Node>(nodes.values()));
                 /*Prevents nodes that already have information on a event asking for information on that event*/
                 while(!randomNode.requestEvent(Randoms.randomItem(eventIDList)));
             }
-            counter = 0;
+            //counter = 0;
         }
         counter++;
         numberOfTicks++;
