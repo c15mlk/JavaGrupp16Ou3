@@ -1,9 +1,6 @@
 package com.javagrupp16.ou3.entities;
 
-import com.javagrupp16.ou3.Event;
-import com.javagrupp16.ou3.Network;
-import com.javagrupp16.ou3.Position;
-import com.javagrupp16.ou3.Randoms;
+import com.javagrupp16.ou3.*;
 
 
 import java.util.*;
@@ -16,7 +13,7 @@ public class Node extends Entity {
 
     private List<Node> neighbours= new ArrayList<Node>();
     protected Map<UUID,Event> eventsMap = new HashMap<UUID,Event>();
-    protected Map<UUID,Position> routingMap = new HashMap<UUID,Position>();
+    protected Map<UUID,Deque<Position>> routingMap = new HashMap<>();
     private List<Moveable> moveableList = new CopyOnWriteArrayList<>(); //Concurrency problems need CopyOnWriteArrayList
     private Deque<Runnable> runnableQue = new ArrayDeque<Runnable>();
 
@@ -28,7 +25,7 @@ public class Node extends Entity {
         Event event = new Event(uuid,getPosition(),network.getTime());
         eventsMap.put(uuid,event);
         if(Randoms.chanceOf(network.getAgentProb())) {
-            Agent agent = new Agent(network, getPosition(),Network.AGENT_MAXSTEPS);
+            Agent agent = new Agent(network,Network.AGENT_MAXSTEPS,this, uuid);
             moveableList.add(agent);
         }
     }

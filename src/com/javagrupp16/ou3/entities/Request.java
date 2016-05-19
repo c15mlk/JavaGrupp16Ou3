@@ -5,10 +5,7 @@ import com.javagrupp16.ou3.Network;
 import com.javagrupp16.ou3.Position;
 import com.javagrupp16.ou3.Randoms;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.Stack;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by Marcus on 2016-05-17.
@@ -17,8 +14,9 @@ public class Request extends Moveable {
 
 
     private Event info = null;
-    private Position eventPosition = null, targetNeighbour;
+    private Position targetNeighbour;
     private Deque<Position> stack = new ArrayDeque<Position>();
+    private Deque<Position> pathToEvent = null;
 
     private int maxSteps;
 
@@ -91,18 +89,20 @@ public class Request extends Moveable {
          *Else if we know where the event happened
          *move towards the event.
          */
-        if(eventPosition == null) {
+        if(pathToEvent == null) {
             if (network.hasNode(getPosition())) {
                 Node targetNode = network.getNode(getPosition());
                 if (targetNode.routingMap.containsKey(eventUUID)) {
-                    eventPosition = targetNode.routingMap.get(eventUUID);
-                    moveTowards(eventPosition);
+                    pathToEvent = targetNode.routingMap.get(eventUUID);
+                    Position p = pathToEvent.pop();
+                    setPosition(p);
                     if(DEBUG && debugTarget == this){
-                        System.out.println("Request found location of event " + eventPosition.toString());
+                        System.out.println("Request found path to event");
                     }
                 } else if(getPosition().equals(targetNeighbour)) {
                     targetNeighbour = Randoms.randomItem(targetNode.getNeighbours()).getPosition();
                     moveTowards(targetNeighbour);
+                    setSteps(getSteps()+1);
                     if(DEBUG && debugTarget == this){
                         System.out.println("*****");
                         System.out.println("Request changed target neighbour to " + targetNeighbour.toString());
@@ -115,17 +115,27 @@ public class Request extends Moveable {
                 moveTowards(targetNeighbour);
             }
         }else{
-            moveTowards(eventPosition);
+            if (network.hasNode(getPosition())) {
+                Node targetNode = network.getNode(getPosition());
+                Deque<Position> path = targetNode.routingMap.get(eventUUID);;
+                if(path.size() < pathToEvent.size()){
+                    pathToEvent = path;
+                }
+            }
+            Position p = pathToEvent.pop();
+            setPosition(p);
         }
 
         if(DEBUG && debugTarget == this){
             if(oldPos.getX() == getPosition().getX() && oldPos.getY() == getPosition().getY()){
-                System.out.println("Request didn't move at all!!");
+                //System.out.println("Request didn't move at all!!");
+                move();
+                return;
             }else {
                 System.out.println("Request moved to " + getPosition().toString());
             }
-            if(eventPosition != null){
-                System.out.println("Request's goal is " + eventPosition.toString());
+            if(pathToEvent != null){
+                System.out.println("Request's is following the path to event");
             }else{
                 System.out.println("Request's goal is " + targetNeighbour.toString());
             }
@@ -148,7 +158,6 @@ public class Request extends Moveable {
 
         /*Add how we walked to the stack and increase step counter by one.*/
         stack.addFirst(getPosition());
-        setSteps(getSteps()+1);
     }
 
 
