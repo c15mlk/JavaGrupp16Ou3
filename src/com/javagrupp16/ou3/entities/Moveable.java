@@ -1,7 +1,12 @@
 package com.javagrupp16.ou3.entities;
 
+import com.javagrupp16.ou3.BiValue;
+import com.javagrupp16.ou3.Direction;
 import com.javagrupp16.ou3.Network;
 import com.javagrupp16.ou3.Position;
+
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 /**
  * Created by Marcus on 2016-05-17.
@@ -17,56 +22,40 @@ public abstract class Moveable extends Entity {
 
     public abstract void move();
 
-    public void moveTowards(Position position){
 
+    private Deque<Position> targetPath = new ArrayDeque<>();
 
-        /*Check which direction to go*/
-        int xDiff = getPosition().getX() - position.getX();
-        int yDiff = getPosition().getY() - position.getY();
-
-        /*If the distance is just 1 step just move to the position*/
-        if((xDiff == 1 && yDiff == 0) || (xDiff == 0 && yDiff == 1)) {
-            setPosition(position);
-            return;
+    public void buildPathTo(BiValue<Direction, Position> biValue){
+        Direction dir = biValue.getKey();
+        targetPath = new ArrayDeque<>();
+        Position p = getPosition();
+        //System.out.println("Trying to build Path");
+        boolean flip = false;
+        while(!p.equals(biValue.getValue())) {
+            p = p.clone();
+            if(Math.abs(dir.getXDiff()) == 1 && Math.abs(dir.getYDiff()) == 1){
+                if(flip){
+                    p.setX(p.getX() + dir.getXDiff());
+                }else{
+                    p.setY(p.getY() + dir.getYDiff());
+                }
+                flip = !flip;
+            }else {
+                p.setX(p.getX() + dir.getXDiff());
+                p.setY(p.getY() + dir.getYDiff());
+            }
+            targetPath.addLast(p);
+            //System.out.println("Path: " + p);
         }
+    }
 
-        Position xPos = getPosition().clone();
-        double xDist = Double.MAX_VALUE;
-
-        /*Create a x pos depending on which direction to go*/
-        /*Check the distance between xPos the position to go to*/
-
-        if(xDiff > 0){ //This position is more to the right
-            xPos.setX(xPos.getX() - 1);
-            xDist = distanceBetween(xPos,position);
-        }else if(xDiff < 0){ //This position is more to the left
-            xPos.setX(xPos.getX() + 1);
-            xDist = distanceBetween(xPos,position);
+    public boolean walkPath(){
+        if(!targetPath.isEmpty()){
+            Position p = targetPath.pop();
+            setPosition(p);
+            return true;
         }
-
-        Position yPos = getPosition().clone();
-        double yDist = Double.MAX_VALUE;
-
-        /*Create a y pos depending on which direction to go*/
-        /*Check the distance between yPos the position to go to*/
-
-
-        if(yDiff > 0){ //This position is above
-            yPos.setY(yPos.getY() - 1);
-            yDist = distanceBetween(yPos,position);
-        }else if(xDiff < 0){ //This position is below
-            yPos.setY(yPos.getY() + 1);
-            yDist = distanceBetween(yPos,position);
-        }
-
-        /*Compare the distances and go to the closest position to the dest position*/
-
-        if(xDist >= yDist){
-            setPosition(yPos);
-        }else{
-            setPosition(xPos);
-        }
-
+        return false;
     }
 
     private double distanceBetween(Position from, Position to){

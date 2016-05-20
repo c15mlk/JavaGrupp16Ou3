@@ -1,63 +1,411 @@
-60: Request spawned at x: 0 y:0
-62: Request found path to event
-62: Request moved to x: 1 y:0
-62: Request's is following the path to event
-63: Request moved to x: 2 y:0
-63: Request's is following the path to event
-64: Request moved to x: 1 y:0
-64: Request's is following the path to event
-65: Request moved to x: 2 y:0
-65: Request's is following the path to event
-66: Request moved to x: 1 y:0
-66: Request's is following the path to event
-67: Request moved to x: 2 y:0
-67: Request's is following the path to event
-68: Request moved to x: 1 y:0
-68: Request's is following the path to event
-69: Request moved to x: 2 y:0
-69: Request's is following the path to event
-70: Request moved to x: 1 y:0
-70: Request's is following the path to event
-71: Request moved to x: 2 y:0
-71: Request's is following the path to event
-72: Request moved to x: 1 y:0
-72: Request's is following the path to event
-73: Request moved to x: 2 y:0
-73: Request's is following the path to event
-74: Request moved to x: 1 y:0
-74: Request's is following the path to event
-75: Request moved to x: 2 y:0
-75: Request's is following the path to event
-76: Request moved to x: 3 y:0
-76: Request's is following the path to event
-77: Request moved to x: 4 y:0
-77: Request's is following the path to event
-78: Request moved to x: 5 y:0
-78: Request's is following the path to event
-79: Request moved to x: 6 y:0
-79: Request's is following the path to event
-80: Request moved to x: 7 y:0
-80: Request's is following the path to event
-81: Request moved to x: 8 y:0
-81: Request's is following the path to event
-82: Request moved to x: 9 y:0
-82: Request's is following the path to event
-83: Request moved to x: 10 y:0
-83: Request's is following the path to event
-83: Request found information on the event.
-84: Request is backtracking to x: 9 y:0
-85: Request is backtracking to x: 8 y:0
-86: Request is backtracking to x: 7 y:0
-87: Request is backtracking to x: 6 y:0
-88: Request is backtracking to x: 5 y:0
-89: Request is backtracking to x: 4 y:0
-90: Request is backtracking to x: 3 y:0
-91: Request is backtracking to x: 2 y:0
-92: Request is backtracking to x: 1 y:0
-93: Request is backtracking to x: 2 y:0
-94: Request is backtracking to x: 1 y:0
-95: Request is backtracking to x: 2 y:0
-96: Request is backtracking to x: 1 y:0
-97: Request is backtracking to x: 2 y:0
-98: Request is backtracking to x: 1 y:0
-99: Request is backtracking to x: 2 y:0
+100: Request spawned at x: 0 y:40
+102: Request moved to x: 1 y:40
+102: Request's goal is x: 10 y:40
+103: Request moved to x: 2 y:40
+103: Request's goal is x: 10 y:40
+104: Request moved to x: 3 y:40
+104: Request's goal is x: 10 y:40
+105: Request moved to x: 4 y:40
+105: Request's goal is x: 10 y:40
+106: Request moved to x: 5 y:40
+106: Request's goal is x: 10 y:40
+107: Request moved to x: 6 y:40
+107: Request's goal is x: 10 y:40
+108: Request moved to x: 7 y:40
+108: Request's goal is x: 10 y:40
+109: Request moved to x: 8 y:40
+109: Request's goal is x: 10 y:40
+110: Request moved to x: 9 y:40
+110: Request's goal is x: 10 y:40
+111: Request moved to x: 10 y:40
+111: Request's goal is x: 10 y:40
+112: Request changed target neighbour to x: 0 y:40
+112: Request moved to x: 9 y:40
+112: Request's goal is x: 0 y:40
+113: Request moved to x: 8 y:40
+113: Request's goal is x: 0 y:40
+114: Request moved to x: 7 y:40
+114: Request's goal is x: 0 y:40
+115: Request moved to x: 6 y:40
+115: Request's goal is x: 0 y:40
+116: Request moved to x: 5 y:40
+116: Request's goal is x: 0 y:40
+117: Request moved to x: 4 y:40
+117: Request's goal is x: 0 y:40
+118: Request moved to x: 3 y:40
+118: Request's goal is x: 0 y:40
+119: Request moved to x: 2 y:40
+119: Request's goal is x: 0 y:40
+120: Request moved to x: 1 y:40
+120: Request's goal is x: 0 y:40
+121: Request moved to x: 0 y:40
+121: Request's goal is x: 0 y:40
+122: Request changed target neighbour to x: 0 y:30
+122: Request moved to x: 0 y:39
+122: Request's goal is x: 0 y:30
+123: Request moved to x: 0 y:38
+123: Request's goal is x: 0 y:30
+124: Request moved to x: 0 y:37
+124: Request's goal is x: 0 y:30
+125: Request moved to x: 0 y:36
+125: Request's goal is x: 0 y:30
+126: Request moved to x: 0 y:35
+126: Request's goal is x: 0 y:30
+127: Request moved to x: 0 y:34
+127: Request's goal is x: 0 y:30
+128: Request moved to x: 0 y:33
+128: Request's goal is x: 0 y:30
+129: Request moved to x: 0 y:32
+129: Request's goal is x: 0 y:30
+130: Request moved to x: 0 y:31
+130: Request's goal is x: 0 y:30
+131: Request moved to x: 0 y:30
+131: Request's goal is x: 0 y:30
+132: Request changed target neighbour to x: 0 y:40
+132: Request moved to x: 0 y:31
+132: Request's goal is x: 0 y:40
+133: Request moved to x: 0 y:32
+133: Request's goal is x: 0 y:40
+134: Request moved to x: 0 y:33
+134: Request's goal is x: 0 y:40
+135: Request moved to x: 0 y:34
+135: Request's goal is x: 0 y:40
+136: Request moved to x: 0 y:35
+136: Request's goal is x: 0 y:40
+137: Request moved to x: 0 y:36
+137: Request's goal is x: 0 y:40
+138: Request moved to x: 0 y:37
+138: Request's goal is x: 0 y:40
+139: Request moved to x: 0 y:38
+139: Request's goal is x: 0 y:40
+140: Request moved to x: 0 y:39
+140: Request's goal is x: 0 y:40
+141: Request moved to x: 0 y:40
+141: Request's goal is x: 0 y:40
+142: Request changed target neighbour to x: 10 y:40
+142: Request moved to x: 1 y:40
+142: Request's goal is x: 10 y:40
+143: Request moved to x: 2 y:40
+143: Request's goal is x: 10 y:40
+144: Request moved to x: 3 y:40
+144: Request's goal is x: 10 y:40
+145: Request moved to x: 4 y:40
+145: Request's goal is x: 10 y:40
+146: Request moved to x: 5 y:40
+146: Request's goal is x: 10 y:40
+147: Request moved to x: 6 y:40
+147: Request's goal is x: 10 y:40
+148: Request moved to x: 7 y:40
+148: Request's goal is x: 10 y:40
+149: Request moved to x: 8 y:40
+149: Request's goal is x: 10 y:40
+150: Request moved to x: 9 y:40
+150: Request's goal is x: 10 y:40
+151: Request moved to x: 10 y:40
+151: Request's goal is x: 10 y:40
+152: Request changed target neighbour to x: 0 y:30
+152: Request moved to x: 10 y:39
+152: Request's goal is x: 0 y:30
+153: Request moved to x: 9 y:39
+153: Request's goal is x: 0 y:30
+154: Request moved to x: 9 y:38
+154: Request's goal is x: 0 y:30
+155: Request moved to x: 8 y:38
+155: Request's goal is x: 0 y:30
+156: Request moved to x: 8 y:37
+156: Request's goal is x: 0 y:30
+157: Request moved to x: 7 y:37
+157: Request's goal is x: 0 y:30
+158: Request moved to x: 7 y:36
+158: Request's goal is x: 0 y:30
+159: Request moved to x: 6 y:36
+159: Request's goal is x: 0 y:30
+160: Request moved to x: 6 y:35
+160: Request's goal is x: 0 y:30
+161: Request moved to x: 5 y:35
+161: Request's goal is x: 0 y:30
+162: Request moved to x: 5 y:34
+162: Request's goal is x: 0 y:30
+163: Request moved to x: 4 y:34
+163: Request's goal is x: 0 y:30
+164: Request moved to x: 4 y:33
+164: Request's goal is x: 0 y:30
+165: Request moved to x: 3 y:33
+165: Request's goal is x: 0 y:30
+166: Request moved to x: 3 y:32
+166: Request's goal is x: 0 y:30
+167: Request moved to x: 2 y:32
+167: Request's goal is x: 0 y:30
+168: Request moved to x: 2 y:31
+168: Request's goal is x: 0 y:30
+169: Request moved to x: 1 y:31
+169: Request's goal is x: 0 y:30
+170: Request moved to x: 1 y:30
+170: Request's goal is x: 0 y:30
+171: Request moved to x: 0 y:30
+171: Request's goal is x: 0 y:30
+172: Request changed target neighbour to x: 0 y:20
+172: Request moved to x: 0 y:29
+172: Request's goal is x: 0 y:20
+173: Request moved to x: 0 y:28
+173: Request's goal is x: 0 y:20
+174: Request moved to x: 0 y:27
+174: Request's goal is x: 0 y:20
+175: Request moved to x: 0 y:26
+175: Request's goal is x: 0 y:20
+176: Request moved to x: 0 y:25
+176: Request's goal is x: 0 y:20
+177: Request moved to x: 0 y:24
+177: Request's goal is x: 0 y:20
+178: Request moved to x: 0 y:23
+178: Request's goal is x: 0 y:20
+179: Request moved to x: 0 y:22
+179: Request's goal is x: 0 y:20
+180: Request moved to x: 0 y:21
+180: Request's goal is x: 0 y:20
+181: Request moved to x: 0 y:20
+181: Request's goal is x: 0 y:20
+182: Request changed target neighbour to x: 10 y:30
+182: Request moved to x: 0 y:21
+182: Request's goal is x: 10 y:30
+183: Request moved to x: 1 y:21
+183: Request's goal is x: 10 y:30
+184: Request moved to x: 1 y:22
+184: Request's goal is x: 10 y:30
+185: Request moved to x: 2 y:22
+185: Request's goal is x: 10 y:30
+186: Request moved to x: 2 y:23
+186: Request's goal is x: 10 y:30
+187: Request moved to x: 3 y:23
+187: Request's goal is x: 10 y:30
+188: Request moved to x: 3 y:24
+188: Request's goal is x: 10 y:30
+189: Request moved to x: 4 y:24
+189: Request's goal is x: 10 y:30
+190: Request moved to x: 4 y:25
+190: Request's goal is x: 10 y:30
+191: Request moved to x: 5 y:25
+191: Request's goal is x: 10 y:30
+192: Request moved to x: 5 y:26
+192: Request's goal is x: 10 y:30
+193: Request moved to x: 6 y:26
+193: Request's goal is x: 10 y:30
+194: Request moved to x: 6 y:27
+194: Request's goal is x: 10 y:30
+195: Request moved to x: 7 y:27
+195: Request's goal is x: 10 y:30
+196: Request moved to x: 7 y:28
+196: Request's goal is x: 10 y:30
+197: Request moved to x: 8 y:28
+197: Request's goal is x: 10 y:30
+198: Request moved to x: 8 y:29
+198: Request's goal is x: 10 y:30
+199: Request moved to x: 9 y:29
+199: Request's goal is x: 10 y:30
+200: Request moved to x: 9 y:30
+200: Request's goal is x: 10 y:30
+201: Request moved to x: 10 y:30
+201: Request's goal is x: 10 y:30
+202: Request changed target neighbour to x: 0 y:20
+202: Request moved to x: 10 y:29
+202: Request's goal is x: 0 y:20
+203: Request moved to x: 9 y:29
+203: Request's goal is x: 0 y:20
+204: Request moved to x: 9 y:28
+204: Request's goal is x: 0 y:20
+205: Request moved to x: 8 y:28
+205: Request's goal is x: 0 y:20
+206: Request moved to x: 8 y:27
+206: Request's goal is x: 0 y:20
+207: Request moved to x: 7 y:27
+207: Request's goal is x: 0 y:20
+208: Request moved to x: 7 y:26
+208: Request's goal is x: 0 y:20
+209: Request moved to x: 6 y:26
+209: Request's goal is x: 0 y:20
+210: Request moved to x: 6 y:25
+210: Request's goal is x: 0 y:20
+211: Request moved to x: 5 y:25
+211: Request's goal is x: 0 y:20
+212: Request moved to x: 5 y:24
+212: Request's goal is x: 0 y:20
+213: Request moved to x: 4 y:24
+213: Request's goal is x: 0 y:20
+214: Request moved to x: 4 y:23
+214: Request's goal is x: 0 y:20
+215: Request moved to x: 3 y:23
+215: Request's goal is x: 0 y:20
+216: Request moved to x: 3 y:22
+216: Request's goal is x: 0 y:20
+217: Request moved to x: 2 y:22
+217: Request's goal is x: 0 y:20
+218: Request moved to x: 2 y:21
+218: Request's goal is x: 0 y:20
+219: Request moved to x: 1 y:21
+219: Request's goal is x: 0 y:20
+220: Request moved to x: 1 y:20
+220: Request's goal is x: 0 y:20
+221: Request moved to x: 0 y:20
+221: Request's goal is x: 0 y:20
+222: Request changed target neighbour to x: 0 y:30
+222: Request moved to x: 0 y:21
+222: Request's goal is x: 0 y:30
+223: Request moved to x: 0 y:22
+223: Request's goal is x: 0 y:30
+224: Request moved to x: 0 y:23
+224: Request's goal is x: 0 y:30
+225: Request moved to x: 0 y:24
+225: Request's goal is x: 0 y:30
+226: Request moved to x: 0 y:25
+226: Request's goal is x: 0 y:30
+227: Request moved to x: 0 y:26
+227: Request's goal is x: 0 y:30
+228: Request moved to x: 0 y:27
+228: Request's goal is x: 0 y:30
+229: Request moved to x: 0 y:28
+229: Request's goal is x: 0 y:30
+230: Request moved to x: 0 y:29
+230: Request's goal is x: 0 y:30
+231: Request moved to x: 0 y:30
+231: Request's goal is x: 0 y:30
+232: Request changed target neighbour to x: 10 y:30
+232: Request moved to x: 1 y:30
+232: Request's goal is x: 10 y:30
+233: Request moved to x: 2 y:30
+233: Request's goal is x: 10 y:30
+234: Request moved to x: 3 y:30
+234: Request's goal is x: 10 y:30
+235: Request moved to x: 4 y:30
+235: Request's goal is x: 10 y:30
+236: Request moved to x: 5 y:30
+236: Request's goal is x: 10 y:30
+237: Request moved to x: 6 y:30
+237: Request's goal is x: 10 y:30
+238: Request moved to x: 7 y:30
+238: Request's goal is x: 10 y:30
+239: Request moved to x: 8 y:30
+239: Request's goal is x: 10 y:30
+240: Request moved to x: 9 y:30
+240: Request's goal is x: 10 y:30
+241: Request moved to x: 10 y:30
+241: Request's goal is x: 10 y:30
+242: Request changed target neighbour to x: 0 y:40
+242: Request moved to x: 10 y:31
+242: Request's goal is x: 0 y:40
+243: Request moved to x: 9 y:31
+243: Request's goal is x: 0 y:40
+244: Request moved to x: 9 y:32
+244: Request's goal is x: 0 y:40
+245: Request moved to x: 8 y:32
+245: Request's goal is x: 0 y:40
+246: Request moved to x: 8 y:33
+246: Request's goal is x: 0 y:40
+247: Request moved to x: 7 y:33
+247: Request's goal is x: 0 y:40
+248: Request moved to x: 7 y:34
+248: Request's goal is x: 0 y:40
+249: Request moved to x: 6 y:34
+249: Request's goal is x: 0 y:40
+250: Request moved to x: 6 y:35
+250: Request's goal is x: 0 y:40
+251: Request moved to x: 5 y:35
+251: Request's goal is x: 0 y:40
+252: Request moved to x: 5 y:36
+252: Request's goal is x: 0 y:40
+253: Request moved to x: 4 y:36
+253: Request's goal is x: 0 y:40
+254: Request moved to x: 4 y:37
+254: Request's goal is x: 0 y:40
+255: Request moved to x: 3 y:37
+255: Request's goal is x: 0 y:40
+256: Request moved to x: 3 y:38
+256: Request's goal is x: 0 y:40
+257: Request moved to x: 2 y:38
+257: Request's goal is x: 0 y:40
+258: Request moved to x: 2 y:39
+258: Request's goal is x: 0 y:40
+259: Request moved to x: 1 y:39
+259: Request's goal is x: 0 y:40
+260: Request moved to x: 1 y:40
+260: Request's goal is x: 0 y:40
+261: Request moved to x: 0 y:40
+261: Request's goal is x: 0 y:40
+262: Request changed target neighbour to x: 0 y:30
+262: Request moved to x: 0 y:39
+262: Request's goal is x: 0 y:30
+263: Request moved to x: 0 y:38
+263: Request's goal is x: 0 y:30
+264: Request moved to x: 0 y:37
+264: Request's goal is x: 0 y:30
+265: Request moved to x: 0 y:36
+265: Request's goal is x: 0 y:30
+266: Request moved to x: 0 y:35
+266: Request's goal is x: 0 y:30
+267: Request moved to x: 0 y:34
+267: Request's goal is x: 0 y:30
+268: Request moved to x: 0 y:33
+268: Request's goal is x: 0 y:30
+269: Request moved to x: 0 y:32
+269: Request's goal is x: 0 y:30
+270: Request moved to x: 0 y:31
+270: Request's goal is x: 0 y:30
+271: Request moved to x: 0 y:30
+271: Request's goal is x: 0 y:30
+272: Request changed target neighbour to x: 10 y:40
+272: Request moved to x: 0 y:31
+272: Request's goal is x: 10 y:40
+273: Request moved to x: 1 y:31
+273: Request's goal is x: 10 y:40
+274: Request moved to x: 1 y:32
+274: Request's goal is x: 10 y:40
+275: Request moved to x: 2 y:32
+275: Request's goal is x: 10 y:40
+276: Request moved to x: 2 y:33
+276: Request's goal is x: 10 y:40
+277: Request moved to x: 3 y:33
+277: Request's goal is x: 10 y:40
+278: Request moved to x: 3 y:34
+278: Request's goal is x: 10 y:40
+279: Request moved to x: 4 y:34
+279: Request's goal is x: 10 y:40
+280: Request moved to x: 4 y:35
+280: Request's goal is x: 10 y:40
+281: Request moved to x: 5 y:35
+281: Request's goal is x: 10 y:40
+282: Request moved to x: 5 y:36
+282: Request's goal is x: 10 y:40
+283: Request moved to x: 6 y:36
+283: Request's goal is x: 10 y:40
+284: Request moved to x: 6 y:37
+284: Request's goal is x: 10 y:40
+285: Request moved to x: 7 y:37
+285: Request's goal is x: 10 y:40
+286: Request moved to x: 7 y:38
+286: Request's goal is x: 10 y:40
+287: Request moved to x: 8 y:38
+287: Request's goal is x: 10 y:40
+288: Request moved to x: 8 y:39
+288: Request's goal is x: 10 y:40
+289: Request moved to x: 9 y:39
+289: Request's goal is x: 10 y:40
+290: Request moved to x: 9 y:40
+290: Request's goal is x: 10 y:40
+291: Request moved to x: 10 y:40
+291: Request's goal is x: 10 y:40
+292: Request changed target neighbour to x: 20 y:40
+292: Request moved to x: 11 y:40
+292: Request's goal is x: 20 y:40
+293: Request moved to x: 12 y:40
+293: Request's goal is x: 20 y:40
+294: Request moved to x: 13 y:40
+294: Request's goal is x: 20 y:40
+295: Request moved to x: 14 y:40
+295: Request's goal is x: 20 y:40
+296: Request moved to x: 15 y:40
+296: Request's goal is x: 20 y:40
+297: Request moved to x: 16 y:40
+297: Request's goal is x: 20 y:40
+298: Request moved to x: 17 y:40
+298: Request's goal is x: 20 y:40
+299: Request moved to x: 18 y:40
+299: Request's goal is x: 20 y:40

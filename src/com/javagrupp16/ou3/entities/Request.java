@@ -1,9 +1,6 @@
 package com.javagrupp16.ou3.entities;
 
-import com.javagrupp16.ou3.Event;
-import com.javagrupp16.ou3.Network;
-import com.javagrupp16.ou3.Position;
-import com.javagrupp16.ou3.Randoms;
+import com.javagrupp16.ou3.*;
 
 import java.util.*;
 
@@ -14,7 +11,7 @@ public class Request extends Moveable {
 
 
     private Event info = null;
-    private Position targetNeighbour;
+    private BiValue<Direction,Position> targetNeighbour;
     private Deque<Position> stack = new ArrayDeque<Position>();
     private Deque<Position> pathToEvent = null;
 
@@ -47,6 +44,15 @@ public class Request extends Moveable {
             debugTarget = this;
             System.out.println("Request spawned at " + getPosition().toString());
         }
+
+        if (network.hasNode(getPosition())) {
+            Node targetNode = network.getNode(getPosition());
+            if (targetNode.routingMap.containsKey(eventUUID)) {
+                if (DEBUG && debugTarget == this) {
+                    System.out.println("Request found path to event");
+                }
+            }
+        }
     }
 
     @Override
@@ -57,7 +63,8 @@ public class Request extends Moveable {
          *Probably only called at the first move() call.*/
         if(targetNeighbour == null){
             stack.addFirst(getPosition());
-            this.targetNeighbour = Randoms.randomItem(sourceNode.getNeighbours()).getPosition();
+            this.targetNeighbour = Randoms.randomItem(sourceNode.getNeighbours());
+            buildPathTo(targetNeighbour);
         }
 
         /*If we have info on the event
@@ -99,45 +106,50 @@ public class Request extends Moveable {
                     if(DEBUG && debugTarget == this){
                         System.out.println("Request found path to event");
                     }
-                } else if(getPosition().equals(targetNeighbour)) {
-                    targetNeighbour = Randoms.randomItem(targetNode.getNeighbours()).getPosition();
-                    moveTowards(targetNeighbour);
-                    setSteps(getSteps()+1);
-                    if(DEBUG && debugTarget == this){
-                        System.out.println("*****");
-                        System.out.println("Request changed target neighbour to " + targetNeighbour.toString());
-                        System.out.println("*****");
-                    }
                 } else {
-                    moveTowards(targetNeighbour);
+                    if(!walkPath()){
+                        targetNeighbour = Randoms.randomItem(targetNode.getNeighbours());
+                        buildPathTo(targetNeighbour);
+                        walkPath();
+                        setSteps(getSteps() + 1);
+                        if(DEBUG && debugTarget == this){
+                            System.out.println("Request changed target neighbour to " + targetNeighbour.getValue().toString());
+                        }
+                    }
                 }
             } else {
-                moveTowards(targetNeighbour);
+                walkPath();
             }
         }else{
             if (network.hasNode(getPosition())) {
+
                 Node targetNode = network.getNode(getPosition());
-                Deque<Position> path = targetNode.routingMap.get(eventUUID);;
-                if(path.size() < pathToEvent.size()){
+                Deque<Position> path = targetNode.routingMap.get(eventUUID);
+                if(path != null && path.size() < pathToEvent.size()){
+                    System.out.println("Request changed path to event since it found a better path." +
+                            (pathToEvent.size() - path.size()) + " difference.");
                     pathToEvent = path;
                 }
             }
-            Position p = pathToEvent.pop();
-            setPosition(p);
+            if(!pathToEvent.isEmpty()) {
+                Position p = pathToEvent.pop();
+                if (p.equals(getPosition())) {
+                    p = pathToEvent.pop();
+                }
+                setPosition(p);
+            }
         }
 
         if(DEBUG && debugTarget == this){
             if(oldPos.getX() == getPosition().getX() && oldPos.getY() == getPosition().getY()){
-                //System.out.println("Request didn't move at all!!");
-                move();
-                return;
+                System.out.println("Request didn't move at all!!");
             }else {
                 System.out.println("Request moved to " + getPosition().toString());
             }
             if(pathToEvent != null){
-                System.out.println("Request's is following the path to event");
+                System.out.println("Request's is following the path to event: " + pathToEvent.size());
             }else{
-                System.out.println("Request's goal is " + targetNeighbour.toString());
+                System.out.println("Request's goal is " + targetNeighbour.getValue().toString());
             }
         }
 

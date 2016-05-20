@@ -7,13 +7,15 @@ import java.lang.reflect.Type;
 import java.util.*;
 
 /**
- * Created by Marcus on 2016-05-17.
+ * TODO Synca noder funkar inte så bra.
+ * TODO När en Request hittar en bättre väg så blir nå knäppt tror jag.
+ * TLDR Agent och Route? funkar inte rätt.
  **/
 public class Network {
 
     private Map<Position, Node> nodes = new HashMap<>();
     private List<UUID> eventIDList = new ArrayList<>();
-    private int height, width, numberOfTicks, counter;
+    private int numberOfTicks, counter;
     private double agentProb, eventProb;
 
 
@@ -21,8 +23,6 @@ public class Network {
     public static final int REQUEST_MAXSTEPS = 45;
 
     public Network(int height, int width, double agentProb, double eventProb){
-        this.height = height;
-        this.width = width;
         this.agentProb = agentProb;
         this.eventProb = eventProb;
         for(int x = 0 ; x < width ; x++){
@@ -34,14 +34,9 @@ public class Network {
         }
 
         for(Node n : nodes.values()){
-            n.addNeighbourAt(0,10);
-            n.addNeighbourAt(0,-10);
-            n.addNeighbourAt(10,0);
-            n.addNeighbourAt(-10,0);
-            n.addNeighbourAt(10,10);
-            n.addNeighbourAt(10,-10);
-            n.addNeighbourAt(-10,10);
-            n.addNeighbourAt(-10,-10);
+            for(Direction d : Direction.values()){
+                n.addNeighbourAt(d);
+            }
         }
     }
 
@@ -59,6 +54,7 @@ public class Network {
         return agentProb;
     }
 
+
     public void timeTick(){
         for(Node n : nodes.values()) {
             if (Randoms.chanceOf(eventProb)) {
@@ -69,13 +65,19 @@ public class Network {
             n.timeTick();
         }
 
-        if(counter == 60){
+        if(counter >= 100){
             for(int i = 0 ; i < 1 ; i++){ //TODO change 1 to 4 again
                 Node randomNode = Randoms.randomItem(new ArrayList<Node>(nodes.values()));
                 /*Prevents nodes that already have information on a event asking for information on that event*/
-                while(!randomNode.requestEvent(Randoms.randomItem(eventIDList)));
+                int loops = 0;
+                while(!randomNode.requestEvent(Randoms.randomItem(eventIDList))){
+                    loops++;
+                    if(loops > 300){
+                        break;
+                    }
+                }
             }
-            //counter = 0;
+            counter = 0;
         }
         counter++;
         numberOfTicks++;

@@ -14,17 +14,19 @@ public class Agent extends Moveable {
     private Map<Position, Boolean> visitedNodeMap = new HashMap<>();
     private Map<UUID, Route> routingMap = new HashMap<>();
     private Node sourceNode;
-    private Position targetNeighbour = null;
+    private BiValue<Direction, Position> targetNeighbour = null;
 
     /*Debug variables*/
     private static final boolean DEBUG = true;
     /*Debugga endast en Agent gör det enklare att läsa*/
     private static Agent debugTarget;
+    private UUID eventID;
 
     public Agent(Network network,int maxSteps, Node node, UUID eventID){
         super(network, node.getPosition());
         this.maxSteps = maxSteps;
         this.sourceNode = node;
+        this.eventID = eventID;
         Route route = new Route();
         route.add(node.getPosition());
         routingMap.put(eventID, route);
@@ -40,31 +42,31 @@ public class Agent extends Moveable {
         Position oldPos = getPosition();
 
         if(targetNeighbour == null){
-            this.targetNeighbour = Randoms.randomItem(sourceNode.getNeighbours()).getPosition();
+            this.targetNeighbour = Randoms.randomItem(sourceNode.getNeighbours());
+            buildPathTo(targetNeighbour);
         }
 
         //Random move towards unvisisted Node similar to Request
 
-        if(getPosition().equals(targetNeighbour)) {
-            visitedNodeMap.put(targetNeighbour, true);
-            Node targetNode = network.getNode(targetNeighbour);
+        if(getPosition().equals(targetNeighbour.getValue())) {
+            visitedNodeMap.put(targetNeighbour.getValue(), true);
+            Node targetNode = network.getNode(targetNeighbour.getValue());
             synchronizeNode(targetNode);
             for(int i = 0 ; i < 8 ; i++){
-                targetNeighbour = Randoms.randomItem(targetNode.getNeighbours()).getPosition();
-                if(!visitedNodeMap.containsKey(targetNeighbour)){
+                targetNeighbour = Randoms.randomItem(targetNode.getNeighbours());
+                buildPathTo(targetNeighbour);
+                if(!visitedNodeMap.containsKey(targetNeighbour.getValue())){
                     break;
                 }
             }
 
-            moveTowards(targetNeighbour);
+            walkPath();
             setSteps(getSteps()+1);
             if (DEBUG && debugTarget == this) {
-                System.out.println("*****");
-                System.out.println("Agent changed target neighbour to " + targetNeighbour.toString());
-                System.out.println("*****");
+                System.out.println("Agent changed target neighbour to " + targetNeighbour.getValue().toString());
             }
         }else{
-            moveTowards(targetNeighbour);
+            walkPath();
         }
 
         if(DEBUG && debugTarget == this){
@@ -73,27 +75,34 @@ public class Agent extends Moveable {
             }else {
                 System.out.println("Agent moved to " + getPosition().toString());
             }
-            System.out.println("Agent's goal is " + targetNeighbour.toString());
+            System.out.println("Agent's goal is " + targetNeighbour.getValue().toString());
         }
 
         //Update all the routes in Routing map.
 
         for(Route route : routingMap.values()){
-            int size = route.size();
-            route.add(getPosition());
-            assert(size != route.size());
+
+            route.add(getPosition().clone());
         }
     }
 
     public void synchronizeNode(Node node){
        /*Sync agents routing into the node*/
+       if(DEBUG && debugTarget == this) {
+            System.out.println("Agent synchronized with " + node.getPosition());
+       }
+       List<BiValue<UUID, Deque<Position>>> list = new ArrayList<>();
        for(Entry<UUID, Route> entry : routingMap.entrySet()){
            if(!node.routingMap.containsKey(entry.getKey())) {
-               node.routingMap.put(entry.getKey(), entry.getValue().fromPosition(node.getPosition()));
-           }else {
+               list.add(new BiValue<>(entry.getKey(),entry.getValue().fromPosition(node.getPosition())));
+           }else if(entry.getKey() != null && entry.getValue() != null) {
                Deque<Position> path = entry.getValue().fromPosition(node.getPosition());
-               if(path.size() < node.routingMap.get(entry.getKey()).size()){
-                   node.routingMap.put(entry.getKey(), path);
+               if(path != null && !path.isEmpty()) {
+                   assert(node.routingMap != null);
+                   assert(node.routingMap.get(entry.getKey()) != null);
+                   if (path.size() < node.routingMap.get(entry.getKey()).size()) {
+                       list.add(new BiValue<>(entry.getKey(),path));
+                   }
                }
            }
        }
@@ -101,12 +110,19 @@ public class Agent extends Moveable {
        /*Sync nodes routing into this agent*/
        for(Entry<UUID, Deque<Position>> entry : node.routingMap.entrySet()){
            if(!routingMap.containsKey(entry.getKey())) {
+               assert(entry.getValue() != null);
+               assert(entry.getKey() != null);
                routingMap.put(entry.getKey(), new Route(entry.getValue()));
            }else {
+               assert(entry.getValue() != null);
+               assert(entry.getKey() != null);
                Route route = routingMap.get(entry.getKey());
                if(entry.getValue().size() < route.size())
                    routingMap.put(entry.getKey(), new Route(entry.getValue()));
            }
+       }
+       for(BiValue<UUID, Deque<Position>> entry : list){
+           node.routingMap.put(entry.getKey(), entry.getValue());
        }
     }
 
@@ -117,5 +133,6 @@ public class Agent extends Moveable {
         }
         return false;
     }
+
 
 }

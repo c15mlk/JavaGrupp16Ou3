@@ -18,15 +18,19 @@ public class Route {
 
     public Deque<Position> fromPosition(Position position){
         if(stack.contains(position)){
+            //System.out.println("Creating Path from Route starting from " + position);
             Iterator<Position> iterator = stack.iterator();
             boolean foundPos = false;
             Deque<Position> path = new ArrayDeque<>();
             while(iterator.hasNext()){
                 Position p = iterator.next();
-                if(!foundPos && p.equals(position)){
+                if(!foundPos && p.equals(position)) {
                     foundPos = true;
-                }else if(foundPos){
-                    path.addFirst(p);
+                } else if(foundPos) {
+                    if(!path.contains(p)) {
+                        path.addLast(p.clone());
+                    }
+                    //System.out.println("Put " + p + " into path");
                 }
             }
             return path.isEmpty() ? null : path;
@@ -35,7 +39,8 @@ public class Route {
     }
 
     public void add(Position p){
-        stack.addFirst(p);
+        assert(p != null);
+        stack.addFirst(p.clone());
     }
 
     public int size(){

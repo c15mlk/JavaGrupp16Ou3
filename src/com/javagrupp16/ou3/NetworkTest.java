@@ -9,7 +9,7 @@ import java.net.URISyntaxException;
 public class NetworkTest {
 
     public static void main(String[] args){
-        final Network network = new Network(1,2,100,100);
+        final Network network = new Network(5,5,1,1);
 
         try {
             File requestLog = new File(Network.class.getResource("RequestLog.txt").toURI());
@@ -41,6 +41,8 @@ public class NetworkTest {
                         }catch(IOException e){
                             e.printStackTrace();
                         }
+                    }else{
+                        super.println(string);
                     }
                     return;
                 }
@@ -55,7 +57,7 @@ public class NetworkTest {
 
 
 
-        for(int i = 0; i < 100; i++){
+        for(int i = 0; i < 300; i++){
             network.timeTick();
         }
 

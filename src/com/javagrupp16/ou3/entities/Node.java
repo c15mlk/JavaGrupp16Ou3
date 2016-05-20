@@ -11,17 +11,19 @@ import java.util.concurrent.CopyOnWriteArrayList;
  **/
 public class Node extends Entity {
 
-    private List<Node> neighbours= new ArrayList<Node>();
+    private List<BiValue<Direction,Position>> neighbours= new ArrayList<>();
     protected Map<UUID,Event> eventsMap = new HashMap<UUID,Event>();
     protected Map<UUID,Deque<Position>> routingMap = new HashMap<>();
     private List<Moveable> moveableList = new CopyOnWriteArrayList<>(); //Concurrency problems need CopyOnWriteArrayList
     private Deque<Runnable> runnableQue = new ArrayDeque<Runnable>();
+
 
     public Node(Network network, Position position){
         super(network, position);
     }
 
     public void detectEvent(UUID uuid){
+        //System.out.println("Event happened at " + getPosition());
         Event event = new Event(uuid,getPosition(),network.getTime());
         eventsMap.put(uuid,event);
         if(Randoms.chanceOf(network.getAgentProb())) {
@@ -67,16 +69,14 @@ public class Node extends Entity {
         request.setComplete(true);
     }
 
-    public List<Node> getNeighbours(){
+    public List<BiValue<Direction,Position>> getNeighbours(){
         return neighbours;
     }
 
-    public void addNeighbourAt(int xAdd, int yAdd){
-        Position p = new Position(getPosition().getX() + xAdd, getPosition().getY() + yAdd);
+    public void addNeighbourAt(Direction direction){
+        Position p = direction.toPosition(getPosition(), 10, 10);
         if(network.hasNode(p)){
-            Node n = network.getNode(p);
-            assert(!n.equals(this));
-            neighbours.add(n);
+            neighbours.add(new BiValue<>(direction, p));
         }
     }
 }
