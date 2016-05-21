@@ -15,6 +15,7 @@ public abstract class Moveable extends Entity {
 
     private int steps;
     private boolean complete = false;
+    private boolean flip = false;
 
     public Moveable(Network network, Position position){
         super(network, position);
@@ -23,46 +24,27 @@ public abstract class Moveable extends Entity {
     public abstract void move();
 
 
-    private Deque<Position> targetPath = new ArrayDeque<>();
+    public boolean walkPath(BiValue<Direction, Position> biValue){
+        if(getPosition().equals(biValue.getValue())){
+            return false;
+        }
 
-    public void buildPathTo(BiValue<Direction, Position> biValue){
         Direction dir = biValue.getKey();
-        targetPath = new ArrayDeque<>();
-        Position p = getPosition();
-        //System.out.println("Trying to build Path");
-        boolean flip = false;
-        while(!p.equals(biValue.getValue())) {
-            p = p.clone();
-            if(Math.abs(dir.getXDiff()) == 1 && Math.abs(dir.getYDiff()) == 1){
-                if(flip){
-                    p.setX(p.getX() + dir.getXDiff());
-                }else{
-                    p.setY(p.getY() + dir.getYDiff());
-                }
-                flip = !flip;
-            }else {
+        Position p = getPosition().clone();
+
+        if(dir.getXDiff() != 0 && dir.getYDiff() != 0){
+            if(flip){
                 p.setX(p.getX() + dir.getXDiff());
+            }else{
                 p.setY(p.getY() + dir.getYDiff());
             }
-            targetPath.addLast(p);
-            //System.out.println("Path: " + p);
+            flip = !flip;
+        }else {
+            p.setX(p.getX() + dir.getXDiff());
+            p.setY(p.getY() + dir.getYDiff());
         }
-    }
-
-    public boolean walkPath(){
-        if(!targetPath.isEmpty()){
-            Position p = targetPath.pop();
-            setPosition(p);
-            return true;
-        }
-        return false;
-    }
-
-    private double distanceBetween(Position from, Position to){
-        double xs = Math.pow(from.getX() - to.getX(), 2);
-        double ys = Math.pow(from.getY() - to.getY(), 2);
-        double d = Math.sqrt(xs + ys);
-        return d;
+        setPosition(p);
+        return true;
     }
 
     public void setSteps(int i){

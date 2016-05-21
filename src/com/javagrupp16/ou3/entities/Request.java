@@ -3,6 +3,7 @@ package com.javagrupp16.ou3.entities;
 import com.javagrupp16.ou3.*;
 
 import java.util.*;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by Marcus on 2016-05-17.
@@ -44,19 +45,11 @@ public class Request extends Moveable {
             debugTarget = this;
             System.out.println("Request spawned at " + getPosition().toString());
         }
-
-        if (network.hasNode(getPosition())) {
-            Node targetNode = network.getNode(getPosition());
-            if (targetNode.routingMap.containsKey(eventUUID)) {
-                if (DEBUG && debugTarget == this) {
-                    System.out.println("Request found path to event");
-                }
-            }
-        }
     }
 
     @Override
     public void move() {
+
         Position oldPos = getPosition();
 
         /*If we don't have a selected neighbour we want to select a random one to go to.
@@ -64,7 +57,6 @@ public class Request extends Moveable {
         if(targetNeighbour == null){
             stack.addFirst(getPosition());
             this.targetNeighbour = Randoms.randomItem(sourceNode.getNeighbours());
-            buildPathTo(targetNeighbour);
         }
 
         /*If we have info on the event
@@ -102,32 +94,28 @@ public class Request extends Moveable {
                 if (targetNode.routingMap.containsKey(eventUUID)) {
                     pathToEvent = targetNode.routingMap.get(eventUUID);
                     Position p = pathToEvent.pop();
+                    if (p.equals(getPosition())) {
+                        p = pathToEvent.pop();
+                    }
                     setPosition(p);
                     if(DEBUG && debugTarget == this){
                         System.out.println("Request found path to event");
                     }
-                } else {
-                    if(!walkPath()){
-                        targetNeighbour = Randoms.randomItem(targetNode.getNeighbours());
-                        buildPathTo(targetNeighbour);
-                        walkPath();
-                        setSteps(getSteps() + 1);
-                        if(DEBUG && debugTarget == this){
-                            System.out.println("Request changed target neighbour to " + targetNeighbour.getValue().toString());
-                        }
-                    }
+                } else if(!walkPath(targetNeighbour)){
+                    onTargetChange(targetNode);
                 }
             } else {
-                walkPath();
+                walkPath(targetNeighbour);
             }
         }else{
             if (network.hasNode(getPosition())) {
-
                 Node targetNode = network.getNode(getPosition());
                 Deque<Position> path = targetNode.routingMap.get(eventUUID);
                 if(path != null && path.size() < pathToEvent.size()){
-                    System.out.println("Request changed path to event since it found a better path." +
-                            (pathToEvent.size() - path.size()) + " difference.");
+                    if(DEBUG && debugTarget == this) {
+                        System.out.println("Request changed path to event since it found a better path." +
+                                (pathToEvent.size() - path.size()) + " difference.");
+                    }
                     pathToEvent = path;
                 }
             }
@@ -172,6 +160,14 @@ public class Request extends Moveable {
         stack.addFirst(getPosition());
     }
 
+    public void onTargetChange(Node targetNode){
+        targetNeighbour = Randoms.randomItem(targetNode.getNeighbours());
+        walkPath(targetNeighbour);
+        setSteps(getSteps() + 1);
+        if(DEBUG && debugTarget == this){
+            System.out.println("Request changed target neighbour to " + targetNeighbour.getValue().toString());
+        }
+    }
 
     public Event getInfo(){
         return info;
