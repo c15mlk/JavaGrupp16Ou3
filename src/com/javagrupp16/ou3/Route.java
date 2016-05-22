@@ -1,69 +1,44 @@
 package com.javagrupp16.ou3;
 
-import java.util.*;
-import java.util.concurrent.LinkedBlockingDeque;
+import java.util.ArrayDeque;
 
 /**
  * Created by Marcus on 2016-05-19.
  */
 public class Route {
-    private Deque<Position> stack = new ArrayDeque<>();
-    private Network network;
+    private ArrayDeque<Position> stack = new ArrayDeque<>();
 
-    public Route(Network network, Deque<Position> from){
-        this.network = network;
-        Iterator<Position> iterator = from.iterator();
-        while(iterator.hasNext()){
-            stack.addLast(network.getCachedClone(iterator.next()));
-        }
+    public Route(ArrayDeque<Position> from){
+        this.stack = from.clone();
     }
 
-    public Route(Network network){
-        this.network = network;
+    public Route(){
+
     }
 
-    public Deque<Position> fromPosition(Position position){
+    public ArrayDeque<Position> fromPosition(Position position){
         if(stack.contains(position)){
-            //System.out.println("Creating Path from Route starting from " + position);
-            Iterator<Position> iterator = stack.iterator();
-            boolean foundPos = false;
-            Deque<Position> path = new ArrayDeque<>();
-            while(iterator.hasNext()){
-                Position p = iterator.next();
-                if(!foundPos && p.equals(position)) {
-                    foundPos = true;
-                } else if(foundPos) {
-                    if(!path.contains(p)) {
-                        path.addLast(network.getCachedClone(p));
-                    }
-                    //System.out.println("Put " + p + " into path");
+            ArrayDeque<Position> path = stack.clone();
+            for(int i = 0 ; i < path.size() ; i++){
+                if(path.pop().equals(position)){
+                    break;
                 }
             }
-            return path.isEmpty() ? null : path;
+            return path;
         }
-        return null;
+        return stack.clone();
     }
 
-    public int sizeFrom(Position position){
-        if(stack.contains(position)){
-            int i = 0;
-            Iterator<Position> iterator = stack.iterator();
-            boolean foundPos = false;
-            while(iterator.hasNext()){
-                Position p = iterator.next();
-                if(!foundPos && p.equals(position)) {
-                    foundPos = true;
-                } else if(foundPos) {
-                    i++;
-                }
-            }
-            return i;
-        }
-        return -1;
+    /*public ArrayDeque<Position> getStack(){
+        return stack;
+    }*/
+
+    public Route clone(){
+        return new Route(stack);
     }
 
     public void add(Position p){
-        stack.addFirst(network.getCachedClone(p));
+        stack.addFirst(p);
     }
 
     public int size(){

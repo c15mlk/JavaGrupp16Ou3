@@ -5,9 +5,6 @@ import com.javagrupp16.ou3.Direction;
 import com.javagrupp16.ou3.Network;
 import com.javagrupp16.ou3.Position;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-
 /**
  * Created by Marcus on 2016-05-17.
  **/
@@ -30,18 +27,17 @@ public abstract class Moveable extends Entity {
         }
 
         Direction dir = biValue.getKey();
-        Position p = getPosition().clone();
+        Position p = getPosition();
 
         if(dir.getXDiff() != 0 && dir.getYDiff() != 0){
             if(flip){
-                p.setX(p.getX() + dir.getXDiff());
+                p = new Position(p.getX() + dir.getXDiff(), p.getY());
             }else{
-                p.setY(p.getY() + dir.getYDiff());
+                p = new Position(p.getX(), p.getY() + dir.getYDiff());
             }
             flip = !flip;
         }else {
-            p.setX(p.getX() + dir.getXDiff());
-            p.setY(p.getY() + dir.getYDiff());
+            p = new Position(p.getX() + dir.getXDiff(), p.getY() + dir.getYDiff());
         }
         setPosition(p);
         return true;
@@ -60,6 +56,8 @@ public abstract class Moveable extends Entity {
     }
 
     public void setComplete(boolean b){
+        if(this == Request.debugTarget)
+            System.out.println(this.getClass().getSimpleName() + " is complete.");
         this.complete = b;
     }
 

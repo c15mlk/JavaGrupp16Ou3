@@ -17,18 +17,13 @@ public class Position {
         this.x = x;
         this.y = y;
     }
+
+
     public int getX(){
         return this.x;
     }
     public int getY(){
         return this.y;
-    }
-
-    public void setX(int x){
-        this.x = x;
-    }
-    public void setY(int y){
-        this.y = y;
     }
 
     @Override
@@ -45,10 +40,6 @@ public class Position {
         int result = x;
         result = 31 * result + y;
         return result;
-    }
-
-    public Position clone(){
-        return new Position(this.x, this.y);
     }
 
     @Override

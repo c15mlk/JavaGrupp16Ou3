@@ -2,22 +2,19 @@ package com.javagrupp16.ou3.entities;
 
 import com.javagrupp16.ou3.*;
 
-
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by Marcus on 2016-05-17.
  **/
 public class Node extends Entity {
 
-	private List<BiValue<Direction,Position>> neighbours= new ArrayList<>();
-	protected Map<UUID,Event> eventsMap = new HashMap<UUID,Event>();
-	protected Map<UUID,Deque<Position>> routingMap = new HashMap<UUID,Deque<Position>>();
-	private Map<Moveable, Moveable> moveableList = new ConcurrentHashMap<Moveable, Moveable>(); //Concurrency problems need CopyOnWriteArrayList
-	private Deque<Runnable> runnableQue = new ArrayDeque<Runnable>();
+	private final List<BiValue<Direction,Position>> neighbours= new ArrayList<>();
+    protected Map<UUID,Event> eventsMap = new HashMap<UUID,Event>();
+    protected Map<UUID,Route> routingMap = new HashMap<>();
+    private final Map<Moveable, Moveable> moveableList = new ConcurrentHashMap<Moveable, Moveable>(); //Concurrency problems need CopyOnWriteArrayList
+	private final ArrayDeque<Runnable> runnableQue = new ArrayDeque<Runnable>();
 
 	public Node(Network network, Position position){
 		super(network, position);

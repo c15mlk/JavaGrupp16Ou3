@@ -18,10 +18,7 @@ public enum Direction {
     }
 
     public Position toPosition(Position from, int xMod, int yMod){
-        Position p = from.clone();
-        p.setX(p.getX() + (xDiff * xMod));
-        p.setY(p.getY() + (yDiff * yMod));
-        return p;
+        return new Position(from.getX() + (xDiff * xMod), from.getY() + (yDiff * yMod));
     }
 
     public int getXDiff(){

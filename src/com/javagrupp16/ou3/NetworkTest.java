@@ -1,6 +1,9 @@
 package com.javagrupp16.ou3;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.net.URISyntaxException;
 
 /**
@@ -56,20 +59,20 @@ public class NetworkTest {
         }
 
 
-
         long time = System.currentTimeMillis();
         int counter = 0;
-        for(int i = 0; i < 2000; i++){
+        for(int i = 0; i < 10000; i++){
             network.timeTick();
             counter++;
-            if(counter == 25){
+            if(counter == 50){
                 System.out.println("Time: " + (i + 1));
                 counter = 0;
             }
+
         }
         long endTime = System.currentTimeMillis() - time;
 
-        System.out.println("Ended in " + endTime/1000 + " seconds");
+        System.out.println("Ended in " + endTime/1000 + " seconds and with " + network.getEventIDList().size() + " events");
     }
 
 }

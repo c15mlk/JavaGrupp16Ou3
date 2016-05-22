@@ -1,15 +1,8 @@
 package com.javagrupp16.ou3;
 
 import com.javagrupp16.ou3.entities.Node;
-import sun.nio.ch.ThreadPool;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 /**
  * TODO Synca noder funkar inte så bra.
@@ -19,17 +12,16 @@ import java.util.concurrent.TimeUnit;
 public class Network {
 
     private Map<Position, Node> nodes;
-    private List<UUID> eventIDList = new ArrayList<>();
+    private List<UUID> eventIDList;
     private int numberOfTicks, counter;
     private double agentProb, eventProb;
-
-    private Map<Position, Position> cachedPositions = new WeakHashMap<>();
 
     public static final int AGENT_MAXSTEPS = 50;
     public static final int REQUEST_MAXSTEPS = 45;
 
     public Network(int height, int width, double agentProb, double eventProb){
         nodes = new HashMap<>(height*width);
+        eventIDList = new ArrayList<>(height*width);
         this.agentProb = agentProb;
         this.eventProb = eventProb;
         for(int x = 0 ; x < width ; x++){
@@ -62,23 +54,17 @@ public class Network {
     }
 
     public void timeTick(){
-
         if(counter >= 400){
             for(int i = 0 ; i < 4 ; i++){ //TODO change 1 to 4 again
-                Node randomNode = Randoms.randomItem(new ArrayList<Node>(nodes.values()));
+                Node randomNode = Randoms.randomItem(new ArrayList<>(nodes.values()));
                 /*Prevents nodes that already have information on a event asking for information on that event*/
-                int loops = 0;
-                while(!randomNode.requestEvent(Randoms.randomItem(eventIDList))){
-                    loops++;
-                    if(loops > 50){
-                        System.out.println("Netowrk Loop stuck");
+                for(int j = 0 ; j < eventIDList.size() ; j++){
+                    if(randomNode.requestEvent(Randoms.randomItem(eventIDList)))
                         break;
-                    }
                 }
             }
             counter = 0;
         }
-
 
         for(final Node n : nodes.values()) {
             n.timeTick();
@@ -96,15 +82,9 @@ public class Network {
         return numberOfTicks;
     }
 
-    protected Position getCachedClone(Position p){
-        Position q;
-        if(cachedPositions.containsKey(p)){
-            q = cachedPositions.get(p);
-        }else {
-            q = p.clone();
-            cachedPositions.put(p, q);
-        }
-        return q;
+
+    public List<UUID> getEventIDList(){
+        return eventIDList;
     }
 
 }
