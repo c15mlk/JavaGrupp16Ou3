@@ -12,15 +12,13 @@ public class Route {
         this.stack = from.clone();
     }
 
-    public Route(){
+    public Route(){}
 
-    }
-
-    public ArrayDeque<Position> fromPosition(Position position){
-        if(stack.contains(position)){
+    public ArrayDeque<Position> fromPosition(Position position) {
+        if (stack.contains(position)) {
             ArrayDeque<Position> path = stack.clone();
-            for(int i = 0 ; i < path.size() ; i++){
-                if(path.pop().equals(position)){
+            for (int i = 0; i < path.size(); i++) {
+                if (path.pop().equals(position)) {
                     break;
                 }
             }
@@ -28,10 +26,6 @@ public class Route {
         }
         return stack.clone();
     }
-
-    /*public ArrayDeque<Position> getStack(){
-        return stack;
-    }*/
 
     public Route clone(){
         return new Route(stack);

@@ -19,7 +19,7 @@ public class Agent extends Moveable {
     private BiValue<Direction, Position> targetNeighbour = null;
 
     /*Debug variables*/
-    private static final boolean DEBUG = false;
+    private static final boolean DEBUG = true;
     /*Debugga endast en Agent gör det enklare att läsa*/
     private static Agent debugTarget;
 
@@ -85,7 +85,7 @@ public class Agent extends Moveable {
         }
     }
 
-    public synchronized void synchronizeNode(Node node) {
+    public void synchronizeNode(Node node) {
 
        /*Sync agents routing into the node*/
         if (DEBUG && debugTarget == this) {
