@@ -4,6 +4,7 @@ import com.javagrupp16.ou3.*;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by Marcus on 2016-05-17.
@@ -13,8 +14,9 @@ public class Node extends Entity {
 	private final List<BiValue<Direction,Position>> neighbours= new ArrayList<>();
     protected Map<UUID,Event> eventsMap = new HashMap<UUID,Event>();
     protected Map<UUID,Route> routingMap = new HashMap<>();
-    private final Map<Moveable, Moveable> moveableList = new ConcurrentHashMap<Moveable, Moveable>(); //Concurrency problems need CopyOnWriteArrayList
+    private final Map<Moveable, Moveable> moveableList = new HashMap<>();
 	private final ArrayDeque<Runnable> runnableQue = new ArrayDeque<Runnable>();
+
 
 	public Node(Network network, Position position){
 		super(network, position);
@@ -44,13 +46,18 @@ public class Node extends Entity {
 	}
 
 	public void timeTick() {
-        for (Moveable moveable : moveableList.values()) {
+		Deque<Moveable> removeQue = new ArrayDeque<>();
+        for (final Moveable moveable : moveableList.values()) {
             if (moveable.isComplete()) {
-                moveableList.remove(moveable);
+				removeQue.add(moveable);
             } else {
                 moveable.move();
             }
         }
+		while(!removeQue.isEmpty()){
+			moveableList.remove(removeQue.pop());
+		}
+
         if (!runnableQue.isEmpty()) {
             runnableQue.pop().run();
         }
