@@ -1,6 +1,9 @@
 package com.javagrupp16.ou3;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.net.URISyntaxException;
 
 /**
@@ -9,7 +12,7 @@ import java.net.URISyntaxException;
 public class NetworkTest {
 
     public static void main(String[] args){
-        final Network network = new Network(1,2,100,100);
+        final Network network = new Network(50,50,50,0.01);
 
         try {
             File requestLog = new File(Network.class.getResource("RequestLog.txt").toURI());
@@ -41,6 +44,9 @@ public class NetworkTest {
                         }catch(IOException e){
                             e.printStackTrace();
                         }
+                        super.println(string);
+                    }else{
+                        super.println(string);
                     }
                     return;
                 }
@@ -53,13 +59,20 @@ public class NetworkTest {
         }
 
 
-
-
-        for(int i = 0; i < 100; i++){
+        long time = System.currentTimeMillis();
+        int counter = 0;
+        for(int i = 0; i < 10000; i++){
             network.timeTick();
-        }
+            counter++;
+            if(counter == 50){
+                System.out.println("Time: " + (i + 1));
+                counter = 0;
+            }
 
-        System.out.println("Ended");
+        }
+        long endTime = System.currentTimeMillis() - time;
+
+        System.out.println("Ended in " + endTime/1000 + " seconds and with " + network.getEventIDList().size() + " events");
     }
 
 }

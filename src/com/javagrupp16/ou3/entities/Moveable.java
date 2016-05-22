@@ -1,5 +1,7 @@
 package com.javagrupp16.ou3.entities;
 
+import com.javagrupp16.ou3.BiValue;
+import com.javagrupp16.ou3.Direction;
 import com.javagrupp16.ou3.Network;
 import com.javagrupp16.ou3.Position;
 
@@ -10,6 +12,7 @@ public abstract class Moveable extends Entity {
 
     private int steps;
     private boolean complete = false;
+    private boolean flip = false;
 
     public Moveable(Network network, Position position){
         super(network, position);
@@ -17,63 +20,27 @@ public abstract class Moveable extends Entity {
 
     public abstract void move();
 
-    public void moveTowards(Position position){
 
-
-        /*Check which direction to go*/
-        int xDiff = getPosition().getX() - position.getX();
-        int yDiff = getPosition().getY() - position.getY();
-
-        /*If the distance is just 1 step just move to the position*/
-        if((xDiff == 1 && yDiff == 0) || (xDiff == 0 && yDiff == 1)) {
-            setPosition(position);
-            return;
+    public boolean walkPath(BiValue<Direction, Position> biValue){
+        if(getPosition().equals(biValue.getValue())){
+            return false;
         }
 
-        Position xPos = getPosition().clone();
-        double xDist = Double.MAX_VALUE;
+        Direction dir = biValue.getKey();
+        Position p = getPosition();
 
-        /*Create a x pos depending on which direction to go*/
-        /*Check the distance between xPos the position to go to*/
-
-        if(xDiff > 0){ //This position is more to the right
-            xPos.setX(xPos.getX() - 1);
-            xDist = distanceBetween(xPos,position);
-        }else if(xDiff < 0){ //This position is more to the left
-            xPos.setX(xPos.getX() + 1);
-            xDist = distanceBetween(xPos,position);
+        if(dir.getXDiff() != 0 && dir.getYDiff() != 0){
+            if(flip){
+                p = new Position(p.getX() + dir.getXDiff(), p.getY());
+            }else{
+                p = new Position(p.getX(), p.getY() + dir.getYDiff());
+            }
+            flip = !flip;
+        }else {
+            p = new Position(p.getX() + dir.getXDiff(), p.getY() + dir.getYDiff());
         }
-
-        Position yPos = getPosition().clone();
-        double yDist = Double.MAX_VALUE;
-
-        /*Create a y pos depending on which direction to go*/
-        /*Check the distance between yPos the position to go to*/
-
-
-        if(yDiff > 0){ //This position is above
-            yPos.setY(yPos.getY() - 1);
-            yDist = distanceBetween(yPos,position);
-        }else if(xDiff < 0){ //This position is below
-            yPos.setY(yPos.getY() + 1);
-            yDist = distanceBetween(yPos,position);
-        }
-
-        /*Compare the distances and go to the closest position to the dest position*/
-
-        if(xDist >= yDist){
-            setPosition(yPos);
-        }else{
-            setPosition(xPos);
-        }
-
-    }
-
-    private double distanceBetween(Position from, Position to){
-        double xs = Math.pow(from.getX() - to.getX(), 2);
-        double ys = Math.pow(from.getY() - to.getY(), 2);
-        double d = Math.sqrt(xs + ys);
-        return d;
+        setPosition(p);
+        return true;
     }
 
     public void setSteps(int i){
@@ -89,6 +56,8 @@ public abstract class Moveable extends Entity {
     }
 
     public void setComplete(boolean b){
+        if(this == Request.debugTarget)
+            System.out.println(this.getClass().getSimpleName() + " is complete.");
         this.complete = b;
     }
 
