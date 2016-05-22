@@ -21,6 +21,11 @@ public class Entity {
     }
 
     public void setPosition(Position position){
+        int xDiff = Math.abs(getPosition().getX() - position.getX());
+        int yDiff = Math.abs(getPosition().getY() - position.getY());
+        if(xDiff > 1 || yDiff > 1)
+            throw new IllegalArgumentException();
+
         this.position = position;
     }
 

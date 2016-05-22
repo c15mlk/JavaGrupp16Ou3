@@ -12,7 +12,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Node extends Entity {
 
 	private final List<BiValue<Direction,Position>> neighbours= new ArrayList<>();
-    protected Map<UUID,Event> eventsMap = new HashMap<UUID,Event>();
+    protected final Map<UUID,Event> eventsMap = new HashMap<UUID,Event>();
     protected Map<UUID,Route> routingMap = new HashMap<>();
     private final Map<Moveable, Moveable> moveableList = new HashMap<>();
 	private final ArrayDeque<Runnable> runnableQue = new ArrayDeque<Runnable>();

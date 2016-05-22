@@ -6,13 +6,15 @@ import java.util.ArrayDeque;
  * Created by Marcus on 2016-05-19.
  */
 public class Route {
-    private ArrayDeque<Position> stack = new ArrayDeque<>();
+    private final ArrayDeque<Position> stack;
 
     public Route(ArrayDeque<Position> from){
         this.stack = from.clone();
     }
 
-    public Route(){}
+    public Route(){
+        this.stack = new ArrayDeque<>();
+    }
 
     public ArrayDeque<Position> fromPosition(Position position) {
         if (stack.contains(position)) {

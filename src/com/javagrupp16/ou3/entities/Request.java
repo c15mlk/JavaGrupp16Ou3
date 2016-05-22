@@ -17,15 +17,8 @@ public class Request extends Moveable {
     private ArrayDeque<Position> pathToEvent = null;
 
     private int maxSteps;
-
-
-    private UUID eventUUID;
-    private Node sourceNode;
-
-    /*Debug variables*/
-    private static final boolean DEBUG = true;
-    /*Debugga endast en Request gör det enklare att läsa*/
-    protected static Request debugTarget;
+    private final UUID eventUUID;
+    private final Node sourceNode;
 
 
     /**
@@ -40,17 +33,10 @@ public class Request extends Moveable {
         this.maxSteps = maxSteps;
         this.eventUUID = uuid;
         this.sourceNode = node;
-
-        if(DEBUG && debugTarget == null){
-            debugTarget = this;
-            System.out.println("Request spawned at " + getPosition().toString());
-        }
     }
 
     @Override
     public void move() {
-
-        Position oldPos = getPosition();
 
         /*If we don't have a selected neighbour we want to select a random one to go to.
          *Probably only called at the first move() call.*/
@@ -65,13 +51,7 @@ public class Request extends Moveable {
             if(!stack.isEmpty()) {
                 Position p = stack.pop();
                 setPosition(p);
-                if (DEBUG && debugTarget == this) {
-                    System.out.println("Request is backtracking to " + getPosition().toString());
-                }
                 if (getPosition().equals(sourceNode.getPosition())) {
-                    if (DEBUG && debugTarget == this) {
-                        System.out.println("Request returned with information");
-                    }
                     sourceNode.receiveEvent(this);
                     setComplete(true);
                 }
@@ -79,51 +59,47 @@ public class Request extends Moveable {
             return;
         }
 
-        /*If we don't know where the event happened
-         *  Check if the request is on a node
-         *      if it is has a path to the event.
-         *      Else check if we stand on our target neighbour and select a new random neighbour.
-         *      Else move towards our target neighbour.
-         *  Else move towards our target neighbour.
-         *Else if we know where the event happened
-         *move towards the event.
-         */
+        /*If we don't know where the event happened*/
         if(pathToEvent == null) {
+            /*Check if the request is on a node*/
             if (network.hasNode(getPosition())) {
                 Node targetNode = network.getNode(getPosition());
+                /*if it is has a path to the event.*/
                 if (targetNode.routingMap.containsKey(eventUUID)) {
+                    /*Start moving according to that path*/
                     pathToEvent = targetNode.routingMap.get(eventUUID).fromPosition(getPosition());
                     Position p = pathToEvent.pop();
                     if (p.equals(getPosition())) {
                         p = pathToEvent.pop();
                     }
                     setPosition(p);
-                    if(DEBUG && debugTarget == this){
-                        System.out.println("Request found path to event");
-                    }
-                } else if(!walkPath(targetNeighbour)){
+                }
+                /*Else it's likely we have reached our target neighbour*/
+                else if(!walkPath(targetNeighbour)){
+                    /*Select a new random neighbour*/
                     targetNeighbour = Randoms.randomItem(targetNode.getNeighbours());
                     walkPath(targetNeighbour);
                     setSteps(getSteps() + 1);
-                    if(DEBUG && debugTarget == this){
-                        System.out.println("Request changed target neighbour to " + targetNeighbour.getValue().toString());
-                    }
                 }
-            } else {
+            }
+            /*Else we are not on a node*/
+            else {
+                /*Move towards our target neighbour*/
                 walkPath(targetNeighbour);
             }
-        }else{
+        }
+        /*Then we have our path to the event*/
+        else{
+            /*Check if we stand on a node*/
             if (network.hasNode(getPosition())) {
+                /*Check if the node knows a better path and change to that*/
                 Node targetNode = network.getNode(getPosition());
                 ArrayDeque<Position> path = targetNode.routingMap.get(eventUUID).fromPosition(getPosition());
                 if(path != null && path.size() < pathToEvent.size()){
-                    if(DEBUG && debugTarget == this) {
-                        System.out.println("Request changed path to event since it found a better path." +
-                                (pathToEvent.size() - path.size()) + " difference.");
-                    }
                     pathToEvent = path;
                 }
             }
+            /*Move according to our path*/
             if(!pathToEvent.isEmpty()) {
                 Position p = pathToEvent.pop();
                 if (p.equals(getPosition())) {
@@ -133,28 +109,11 @@ public class Request extends Moveable {
             }
         }
 
-        if(DEBUG && debugTarget == this){
-            if(oldPos.getX() == getPosition().getX() && oldPos.getY() == getPosition().getY()){
-                System.out.println("Request didn't move at all!!");
-            }else {
-                System.out.println("Request moved to " + getPosition().toString());
-            }
-            if(pathToEvent != null){
-                System.out.println("Request's is following the path to event: " + pathToEvent.size());
-            }else{
-                System.out.println("Request's goal is " + targetNeighbour.getValue().toString());
-            }
-        }
-
-        /*If we stand on a node and the node contains info on the event.
-         *Store the info and reset steps and return.
-         */
+        /*If we stand on a node and the node contains info on the event.*/
+        /*Store the info and reset steps and return.*/
         if (network.hasNode(getPosition())) {
             Node targetNode = network.getNode(getPosition());
             if(targetNode.eventsMap.containsKey(eventUUID)) {
-                if(DEBUG && debugTarget == this){
-                    System.out.println("Request found information on the event.");
-                }
                 this.info = targetNode.eventsMap.get(eventUUID);
                 setSteps(0);
                 return;

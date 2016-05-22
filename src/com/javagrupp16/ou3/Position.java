@@ -5,8 +5,8 @@ package com.javagrupp16.ou3;
  **/
 public class Position {
 
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
     /**
      * Creates a position and sets its x and y value.

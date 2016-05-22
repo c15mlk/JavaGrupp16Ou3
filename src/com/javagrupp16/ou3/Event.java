@@ -18,14 +18,6 @@ public class Event {
         this.time = time;
     }
 
-    public UUID getId(){
-    return id;
-    }
-
-    public int getTime(){
-    return time;
-    }
-
     public Position getPosition(){
     return position;
     }

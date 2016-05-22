@@ -1,14 +1,16 @@
-package com.javagrupp16.ou3;
+package com.javagrupp16.ou3.entities;
 
-import org.junit.After;
+import com.javagrupp16.ou3.Network;
+import com.javagrupp16.ou3.Position;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
  * Created by Marcus on 2016-05-22.
  */
-public class NetworkTest {
+public class NodeTest {
     private Network network;
+    private Node node;
 
     @Before
     public void setUp() throws Exception {
@@ -22,14 +24,4 @@ public class NetworkTest {
         assert(network.hasNode(new Position(0,10)));
         assert(network.getNode(new Position(0,0)) != null);
     }
-
-    @Test
-    public void checkSoEventsHappen(){
-        int time = network.getTime();
-        network.timeTick();
-        assert(network.getEventIDList().size() != 0);
-        assert(time < network.getTime());
-    }
-
-
 }

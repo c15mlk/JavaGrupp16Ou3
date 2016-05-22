@@ -56,8 +56,6 @@ public abstract class Moveable extends Entity {
     }
 
     public void setComplete(boolean b){
-        if(this == Request.debugTarget)
-            System.out.println(this.getClass().getSimpleName() + " is complete.");
         this.complete = b;
     }
 

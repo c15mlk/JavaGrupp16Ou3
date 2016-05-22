@@ -18,10 +18,6 @@ public class Agent extends Moveable {
     private Node sourceNode;
     private BiValue<Direction, Position> targetNeighbour = null;
 
-    /*Debug variables*/
-    private static final boolean DEBUG = true;
-    /*Debugga endast en Agent gör det enklare att läsa*/
-    private static Agent debugTarget;
 
 
     public Agent(Network network, int maxSteps, Node node, UUID eventID) {
@@ -31,26 +27,18 @@ public class Agent extends Moveable {
         Route route = new Route();
         route.add(node.getPosition());
         routingMap.put(eventID, route);
-
-        if (DEBUG && debugTarget == null) {
-            debugTarget = this;
-            System.out.println("Agent spawned at " + getPosition().toString());
-        }
     }
 
     @Override
     public void move() {
 
-
-        Position oldPos = getPosition();
-
         if (targetNeighbour == null) {
             this.targetNeighbour = Randoms.randomItem(sourceNode.getNeighbours());
         }
 
-        //Random move towards unvisisted Node similar to Request
-
+        /*If we stand on our target neighbour*/
         if (getPosition().equals(targetNeighbour.getValue())) {
+            /*Synchronize and pick new target neighbour*/
             visitedNodeMap.put(targetNeighbour.getValue(), true);
             Node targetNode = network.getNode(targetNeighbour.getValue());
             synchronizeNode(targetNode);
@@ -60,37 +48,19 @@ public class Agent extends Moveable {
                     break;
                 }
             }
-
             setSteps(getSteps() + 1);
-            if (DEBUG && debugTarget == this) {
-                System.out.println("Agent changed target neighbour to " + targetNeighbour.getValue().toString());
-            }
         }
 
+        /*Walk towards our target*/
         walkPath(targetNeighbour);
 
-        if (DEBUG && debugTarget == this) {
-            if (oldPos.getX() == getPosition().getX() && oldPos.getY() == getPosition().getY()) {
-                System.out.println("Agent didn't move at all!!");
-            } else {
-                System.out.println("Agent moved to " + getPosition().toString());
-            }
-            System.out.println("Agent's goal is " + targetNeighbour.getValue().toString());
-        }
-
-        //Update all the routes in Routing map.
-
+        /*Update all the routes in Routing map.*/
         for (Route route : routingMap.values()) {
             route.add(getPosition());
         }
     }
 
     public void synchronizeNode(Node node) {
-
-       /*Sync agents routing into the node*/
-        if (DEBUG && debugTarget == this) {
-            System.out.println("Agent synchronized with " + node.getPosition());
-        }
 
        /*Sync nodes routing into this agent*/
         for (Entry<UUID, Route> entry : node.routingMap.entrySet()) {
