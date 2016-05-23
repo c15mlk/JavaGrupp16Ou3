@@ -2,13 +2,9 @@ package com.javagrupp16.ou3;
 
 import com.javagrupp16.ou3.entities.Node;
 
+import java.io.PrintStream;
 import java.util.*;
 
-/**
- * TODO Synca noder funkar inte så bra.
- * TODO När en Request hittar en bättre väg så blir nå knäppt tror jag.
- * TLDR Agent och Route? funkar inte rätt.
- **/
 public class Network {
 
     private Map<Position, Node> nodes;

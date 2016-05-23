@@ -42,8 +42,6 @@ public abstract class Moveable extends Entity {
         return true;
     }
 
-    public abstract void debug();
-
     public int getSteps(){
         return steps;
     }

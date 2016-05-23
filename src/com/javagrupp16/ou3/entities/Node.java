@@ -1,6 +1,7 @@
 package com.javagrupp16.ou3.entities;
 
 import com.javagrupp16.ou3.*;
+import com.sun.org.apache.xalan.internal.xsltc.util.IntegerArray;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -16,7 +17,7 @@ public class Node extends Entity {
     private Map<UUID,Path> routingMap = new HashMap<>();
     private final Map<Moveable, Moveable> moveableList = new HashMap<>();
 	private final ArrayDeque<Runnable> runnableQue = new ArrayDeque<Runnable>();
-
+	protected final Map<UUID, Integer> expectedInfo = new HashMap<>();
 
 	public Node(Network network, Position position){
 		super(network, position);
@@ -36,6 +37,11 @@ public class Node extends Entity {
 			return false;
 		}
 		final Request request = new Request(network,getPosition(),uuid,this,Network.REQUEST_MAXSTEPS);
+		if(expectedInfo.containsKey(uuid)){
+			expectedInfo.remove(uuid);
+		}else {
+			expectedInfo.put(uuid, network.getTime());
+		}
 		runnableQue.add(new Runnable(){
 			@Override
 			public void run(){
@@ -50,15 +56,21 @@ public class Node extends Entity {
         for (final Moveable moveable : moveableList.values()) {
             if (moveable.isComplete()) {
 				removeQue.add(moveable);
-				moveable.debug();
             } else {
                 moveable.move();
             }
         }
 		while(!removeQue.isEmpty()){
-			moveableList.remove(removeQue.pop());
+			Moveable moveable = removeQue.pop();
+			if(moveable instanceof Request)
+				((Request)moveable).onRemove();
+			moveableList.remove(moveable);
 		}
-
+		for(Map.Entry<UUID, Integer> entry : expectedInfo.entrySet()){
+			if((network.getTime() - entry.getValue()) > Network.REQUEST_MAXSTEPS * 8){
+				requestEvent(entry.getKey());
+			}
+		}
         if (!runnableQue.isEmpty()) {
             runnableQue.pop().run();
         }

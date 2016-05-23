@@ -54,30 +54,26 @@ public class Agent extends Moveable {
 
     public void synchronizeNode(Node node, Position nextDest) {
 
-
-        /*Map<UUID,Path> nodeRouting = node.getRoutingMap();
-        if(!nodeRouting.isEmpty()) {
-            /*Sync nodes routing into this agent
-            for (Entry<UUID, Path> entry : nodeRouting.entrySet()) {
-                if (!routingMap.containsKey(entry.getKey())) {
-                    routingMap.put(entry.getKey(), entry.getValue().getStepsToEvent());
-                } else {
-                    Integer stepsToEvent = routingMap.get(entry.getKey());
-                    if (entry.getValue().getStepsToEvent() < stepsToEvent)
-                        routingMap.put(entry.getKey(), entry.getValue().getStepsToEvent());
-                }
-            }
-        }*/
-
-       // nodeRouting.clear();
-
         for(Entry<UUID, Integer> entry : routingMap.entrySet()){
             routingMap.put(entry.getKey(), entry.getValue() + 1);
-        }
-        for(Entry<UUID, Integer> entry : routingMap.entrySet()){
             Path path = new Path(entry.getKey(), nextDest, entry.getValue());
             node.getRoutingMap().put(entry.getKey(), path);
         }
+
+
+        Map<UUID,Path> nodeRouting = node.getRoutingMap();
+        if(!nodeRouting.isEmpty()) {
+            /*Sync nodes routing into this agent*/
+            for (Entry<UUID, Path> entry : nodeRouting.entrySet()) {
+                if (!routingMap.containsKey(entry.getKey())) {
+                    routingMap.put(entry.getKey(), entry.getValue().getStepsToEvent());
+                }
+            }
+        }
+
+
+       // nodeRouting.clear();
+
     }
 
     public void debug(){

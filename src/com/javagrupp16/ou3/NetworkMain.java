@@ -11,15 +11,8 @@ public class NetworkMain {
 
 
         long time = System.currentTimeMillis();
-        int counter = 0;
         for(int i = 0; i < 10000; i++){
             network.timeTick();
-            counter++;
-            if(counter == 100){
-                System.out.println("Time: " + (i + 1));
-                counter = 0;
-            }
-
         }
         long endTime = System.currentTimeMillis() - time;
 

@@ -49,6 +49,7 @@ public class Request extends Moveable {
                 Position p = stack.pop();
                 setPosition(p);
                 if (getPosition().equals(sourceNode.getPosition())) {
+
                     sourceNode.receiveEvent(this);
                     setComplete(true);
                 }
@@ -64,10 +65,11 @@ public class Request extends Moveable {
             if (routingMap.containsKey(eventUUID)) {
                 /*Start moving according to that path*/
                 onPath = true;
-                setPosition(routingMap.get(eventUUID).getNextDest());
+                walkTo(routingMap.get(eventUUID).getNextDest());
+
             } else {
                 if(onPath){
-                    System.out.println("Request lost target");
+                    throw new IllegalStateException("Found path but still walking towards neighbours");
                 }
                 /*Select a new random neighbour*/
                 Direction dir = Randoms.randomItem(targetNode.getNeighbours());
@@ -84,14 +86,14 @@ public class Request extends Moveable {
         }
 
 
+
         /*Add how we walked to the stack*/
         stack.addFirst(getPosition());
 
     }
 
-    @Override
-    public void debug(){
-        System.out.println("Request ended: " + this.getSteps());
+    public void onRemove(){
+        sourceNode.expectedInfo.remove(eventUUID);
     }
 
     public Event getInfo(){
@@ -100,7 +102,7 @@ public class Request extends Moveable {
 
     @Override
     public boolean isComplete(){
-        if(getSteps() >= maxSteps){
+        if(getSteps() >= maxSteps && !onPath){
             return true;
         }else{
             return super.isComplete();
