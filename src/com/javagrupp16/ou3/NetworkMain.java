@@ -4,7 +4,7 @@ package com.javagrupp16.ou3;
 import java.io.PrintStream;
 
 /**
- * Created by Marcus on 2016-05-17.
+ * Created by Grupp-16 on 2016-05-17.
  */
 public class NetworkMain {
 

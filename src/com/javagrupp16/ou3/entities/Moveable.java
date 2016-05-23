@@ -4,19 +4,30 @@ import com.javagrupp16.ou3.Network;
 import com.javagrupp16.ou3.Position;
 
 /**
- * Created by Marcus on 2016-05-17.
+ * Moveable.java
+ * An abstract class representing a moveable entity.
+ * Created by Grupp 16 on 2016-05-17.
  **/
 public abstract class Moveable extends Entity {
 
 	private int steps;
 	private boolean complete = false;
 
+	/**
+	 * Constructs a Moveable.
+	 * @param network the network it belongs to.
+	 * @param position the moveable's starting position
+     */
 	public Moveable(Network network, Position position) {
 		super(network, position);
 	}
 
 	public abstract void move();
 
+	/**
+	 * A method used to walk to a position
+	 * @param position the position to go to.
+     */
 	public void walkTo(Position position) {
 		setPosition(position);
 		steps++;

@@ -5,7 +5,9 @@ import com.javagrupp16.ou3.*;
 import java.util.*;
 
 /**
- * Created by Marcus on 2016-05-17.
+ * Node.java
+ * Represents a node in the network.
+ * Created by Grupp 16 on 2016-05-17.
  **/
 public class Node extends Entity {
 
@@ -16,10 +18,20 @@ public class Node extends Entity {
 	private final ArrayDeque<Runnable> runnableQue = new ArrayDeque<Runnable>();
 	protected final Map<UUID, Integer> expectedInfo = new HashMap<>();
 
+	/**
+	 * Constructs a Node.
+	 * @param network the network it belongs to.
+	 * @param position the node's position
+	 */
 	public Node(Network network, Position position) {
 		super(network, position);
 	}
 
+	/**
+	 * The node detects a event with the given UUID.
+	 * There's a chance of a agent emerging with the event.
+	 * @param uuid the event's uuid
+     */
 	public void detectEvent(UUID uuid) {
 		Event event = new Event(uuid, getPosition(), network.getTime());
 		eventsMap.put(uuid, event);
@@ -29,6 +41,11 @@ public class Node extends Entity {
 		}
 	}
 
+	/**
+	 * Sends a request for the given Event-ID if the node doesn't have information on the event.
+	 * @param uuid the Event-ID
+	 * @return boolean representing if this node already has information on this event.
+     */
 	public boolean requestEvent(UUID uuid) {
 		if (eventsMap.containsKey(uuid)) {
 			return false;
@@ -48,6 +65,14 @@ public class Node extends Entity {
 		return true;
 	}
 
+	/**
+	 * Updates all the {@link Moveable} objects that belong to this node.
+	 * Also checks so if the requests have exceeded a certain number of steps
+	 * and not returned with the information
+	 * and attempts to send a new {@Link Request} for that event.
+	 * Also executes a single special action such as receiving information,
+	 * sending a request.
+	 */
 	public void timeTick() {
 		Deque<Moveable> removeQue = new ArrayDeque<>();
 		for (final Moveable moveable : moveableList.values()) {
@@ -73,6 +98,11 @@ public class Node extends Entity {
 		}
 	}
 
+	/**
+	 * Receives information from a request returning with the information.
+	 * Marks the request for removal.
+	 * @param request the request
+     */
 	public void receiveEvent(final Request request) {
 		runnableQue.add(new Runnable() {
 			@Override
@@ -93,6 +123,10 @@ public class Node extends Entity {
 		return neighbours;
 	}
 
+	/**
+	 * Used at Network.init() for checking and adding neighbours for the node.
+	 * @param direction a direction a neighbour may be at.
+     */
 	public void addNeighbourAt(Direction direction) {
 		Position p = direction.toPosition(getPosition(), 10, 10);
 		if (network.hasNode(p)) {

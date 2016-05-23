@@ -1,7 +1,10 @@
 package com.javagrupp16.ou3;
 
 /**
- * Created by Mirrepirre on 2016-05-19.
+ * Direction.java
+ * Enum representing Directions such as up/down left/right
+ * and the combined versions of those.
+ * Created by Grupp 16 on 2016-05-19.
  */
 public enum Direction {
 	UP(0, 1), DOWN(0, -1), RIGHT(1, 0),
@@ -17,15 +20,15 @@ public enum Direction {
 		this.yDiff = y;
 	}
 
+	/**
+	 * Translates a direction to a position from a source position and with vector values
+	 * @param from source position
+	 * @param xMod vector for X
+	 * @param yMod vector for Y
+     * @return the position translated from this direction
+     */
 	public Position toPosition(Position from, int xMod, int yMod) {
 		return new Position(from.getX() + (xDiff * xMod), from.getY() + (yDiff * yMod));
 	}
 
-	public int getXDiff() {
-		return xDiff;
-	}
-
-	public int getYDiff() {
-		return yDiff;
-	}
 }
