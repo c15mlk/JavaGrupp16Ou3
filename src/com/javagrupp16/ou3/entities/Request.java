@@ -7,7 +7,10 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * Created by Marcus on 2016-05-17.
+ * Request.java
+ * Represents a request sent by a {@Link Node}
+ * Searches for the event-id given during construction.
+ * Created by Grupp 16 on 2016-05-17.
  **/
 public class Request extends Moveable {
 
@@ -21,13 +24,14 @@ public class Request extends Moveable {
 
 	private boolean onPath = false;
 
-
 	/**
-	 * @param network
-	 * @param position
-	 * @param uuid
-	 * @param node
-	 */
+	 * Constructs a Request with the given parameters.
+	 * @param network the network it belongs to.
+	 * @param position the starting position
+	 * @param uuid the event-id of the event it searches for.
+	 * @param node the node that sent it.
+     * @param maxSteps the maximum number of steps it can take.
+     */
 	public Request(Network network, Position position, UUID uuid, Node node, int maxSteps) {
 		super(network, position);
 		this.maxSteps = maxSteps;
@@ -36,6 +40,11 @@ public class Request extends Moveable {
 		stack.addFirst(getPosition());
 	}
 
+	/**
+	 * Moves to a random neighbour if no path to event is found.
+	 * If the path to the event is found then it walk according to that path.
+	 * When it reaches the event it will start backtracking with this information.
+	 */
 	@Override
 	public void move() {
 
@@ -89,6 +98,10 @@ public class Request extends Moveable {
 
 	}
 
+	/**
+	 * Called before the Request is removed from the nodes list.
+	 * Removes itself from the sourceNodes expectedInfo.
+	 */
 	public void onRemove() {
 		sourceNode.expectedInfo.remove(eventUUID);
 	}
@@ -97,6 +110,11 @@ public class Request extends Moveable {
 		return info;
 	}
 
+	/**
+	 * Returns true if it's steps exceeds the max steps and it's not on a path to the event.
+	 * Or when it is marked for removal because it has returned with the information.
+	 * @return boolean representing if it's complete.
+     */
 	@Override
 	public boolean isComplete() {
 		if (getSteps() >= maxSteps && !onPath) {
