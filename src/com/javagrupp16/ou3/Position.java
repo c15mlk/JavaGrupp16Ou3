@@ -1,7 +1,8 @@
 package com.javagrupp16.ou3;
 
 /**
- * Created by Marcus on 2016-05-17.
+ * A class that is the position of another object.
+ * Created by Grupp 16 on 2016-05-17.
  **/
 public class Position {
 
@@ -28,6 +29,12 @@ public class Position {
 		return this.y;
 	}
 
+	/**
+	 * Method that compares its own position to a given position and checks if
+	 * they are the same.
+	 * @param o the position to be checked with.
+     * @return true if they are the same position otherwise false.
+     */
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof Position) {
