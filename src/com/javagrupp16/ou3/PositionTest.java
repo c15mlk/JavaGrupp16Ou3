@@ -7,10 +7,10 @@ import org.junit.Test;
  */
 public class PositionTest {
 
-    @Test
-    public void equalsTest(){
-        Position pos = new Position(0,1);
-        assert(pos.equals(new Position(0,1)));
-        assert(!pos.equals(new Position(0,2)));
-    }
+	@Test
+	public void equalsTest() {
+		Position pos = new Position(0, 1);
+		assert (pos.equals(new Position(0, 1)));
+		assert (!pos.equals(new Position(0, 2)));
+	}
 }
