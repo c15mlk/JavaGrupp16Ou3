@@ -11,9 +11,9 @@ import java.util.concurrent.locks.ReentrantLock;
  **/
 public class Node extends Entity {
 
-	private final List<BiValue<Direction,Position>> neighbours= new ArrayList<>();
+	private final List<Direction> neighbours= new ArrayList<>();
     protected final Map<UUID,Event> eventsMap = new HashMap<UUID,Event>();
-    protected Map<UUID,Route> routingMap = new HashMap<>();
+    private Map<UUID,Path> routingMap = new HashMap<>();
     private final Map<Moveable, Moveable> moveableList = new HashMap<>();
 	private final ArrayDeque<Runnable> runnableQue = new ArrayDeque<Runnable>();
 
@@ -50,6 +50,7 @@ public class Node extends Entity {
         for (final Moveable moveable : moveableList.values()) {
             if (moveable.isComplete()) {
 				removeQue.add(moveable);
+				moveable.debug();
             } else {
                 moveable.move();
             }
@@ -73,14 +74,19 @@ public class Node extends Entity {
 		request.setComplete(true);
 	}
 
-	public List<BiValue<Direction,Position>> getNeighbours(){
+
+	public Map<UUID, Path> getRoutingMap(){
+		return routingMap;
+	}
+
+	public List<Direction> getNeighbours(){
 		return neighbours;
 	}
 
 	public void addNeighbourAt(Direction direction){
 		Position p = direction.toPosition(getPosition(), 10, 10);
 		if(network.hasNode(p)){
-			neighbours.add(new BiValue<>(direction, p));
+			neighbours.add(direction);
 		}
 	}
 }

@@ -12,7 +12,7 @@ public class NetworkMain {
 
         long time = System.currentTimeMillis();
         int counter = 0;
-        for(int i = 0; i < 3000; i++){
+        for(int i = 0; i < 10000; i++){
             network.timeTick();
             counter++;
             if(counter == 100){

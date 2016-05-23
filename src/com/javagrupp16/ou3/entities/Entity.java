@@ -21,10 +21,13 @@ public class Entity {
     }
 
     public void setPosition(Position position){
+        if(position.equals(getPosition())){
+            throw new IllegalArgumentException("Attempting to move to same position");
+        }
         int xDiff = Math.abs(getPosition().getX() - position.getX());
         int yDiff = Math.abs(getPosition().getY() - position.getY());
-        if(xDiff > 1 || yDiff > 1)
-            throw new IllegalArgumentException();
+        if(xDiff > 10 || yDiff > 10)
+            throw new IllegalArgumentException("xDiff " + xDiff + " yDiff " + yDiff);
 
         this.position = position;
     }
