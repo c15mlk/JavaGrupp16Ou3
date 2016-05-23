@@ -12,7 +12,7 @@ public enum Direction {
 
     private int xDiff,yDiff;
 
-    private Direction(int x, int y){
+    Direction(int x, int y){
         this.xDiff = x;
         this.yDiff = y;
     }

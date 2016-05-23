@@ -12,7 +12,6 @@ public abstract class Moveable extends Entity {
 
     private int steps;
     private boolean complete = false;
-    private boolean flip = false;
 
     public Moveable(Network network, Position position){
         super(network, position);
@@ -21,31 +20,29 @@ public abstract class Moveable extends Entity {
     public abstract void move();
 
 
-    public boolean walkPath(BiValue<Direction, Position> biValue){
-        if(getPosition().equals(biValue.getValue())){
+    public boolean walkTowards(Direction dir){
+        Position target = dir.toPosition(getPosition(),10,10);
+
+        if(getPosition().equals(target)){
+            System.out.println("Didn't move");
             return false;
         }
-
-        Direction dir = biValue.getKey();
-        Position p = getPosition();
-
-        if(dir.getXDiff() != 0 && dir.getYDiff() != 0){
-            if(flip){
-                p = new Position(p.getX() + dir.getXDiff(), p.getY());
-            }else{
-                p = new Position(p.getX(), p.getY() + dir.getYDiff());
-            }
-            flip = !flip;
-        }else {
-            p = new Position(p.getX() + dir.getXDiff(), p.getY() + dir.getYDiff());
-        }
-        setPosition(p);
+        setPosition(target);
+        steps++;
         return true;
     }
 
-    public void setSteps(int i){
-        this.steps = i;
+    public boolean walkTo(Position position){
+        if(getPosition().equals(position)){
+            System.out.println("Didn't move");
+            return false;
+        }
+        setPosition(position);
+        steps++;
+        return true;
     }
+
+    public abstract void debug();
 
     public int getSteps(){
         return steps;
@@ -56,8 +53,6 @@ public abstract class Moveable extends Entity {
     }
 
     public void setComplete(boolean b){
-        if(this == Request.debugTarget)
-            System.out.println(this.getClass().getSimpleName() + " is complete.");
         this.complete = b;
     }
 

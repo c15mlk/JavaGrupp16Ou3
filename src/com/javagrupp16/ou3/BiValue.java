@@ -4,8 +4,8 @@ package com.javagrupp16.ou3;
  * Created by Mirrepirre on 2016-05-19.
  */
 public class BiValue<K,V> {
-        private K key;
-        private V value;
+        private final K key;
+        private final V value;
 
         public BiValue(K key, V value){
             assert(key != null);

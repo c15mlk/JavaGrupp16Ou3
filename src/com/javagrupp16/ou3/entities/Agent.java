@@ -1,7 +1,10 @@
 package com.javagrupp16.ou3.entities;
 
 import com.javagrupp16.ou3.*;
+import com.sun.org.apache.xpath.internal.SourceTree;
 
+import java.lang.reflect.Array;
+import java.util.ArrayDeque;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -14,96 +17,71 @@ public class Agent extends Moveable {
 
     private int maxSteps;
     private Map<Position, Boolean> visitedNodeMap = new HashMap<>();
-    private Map<UUID, Route> routingMap = new HashMap<>();
+    private Map<UUID, Integer> routingMap = new HashMap<>();
     private Node sourceNode;
-    private BiValue<Direction, Position> targetNeighbour = null;
 
-    /*Debug variables*/
-    private static final boolean DEBUG = true;
-    /*Debugga endast en Agent gör det enklare att läsa*/
-    private static Agent debugTarget;
 
 
     public Agent(Network network, int maxSteps, Node node, UUID eventID) {
         super(network, node.getPosition());
         this.maxSteps = maxSteps;
         this.sourceNode = node;
-        Route route = new Route();
-        route.add(node.getPosition());
-        routingMap.put(eventID, route);
-
-        if (DEBUG && debugTarget == null) {
-            debugTarget = this;
-            System.out.println("Agent spawned at " + getPosition().toString());
-        }
+        routingMap.put(eventID,0);
     }
 
     @Override
     public void move() {
 
+        Node currentNode = network.getNode(getPosition());
+
 
         Position oldPos = getPosition();
 
-        if (targetNeighbour == null) {
-            this.targetNeighbour = Randoms.randomItem(sourceNode.getNeighbours());
+        Position pos = null;
+        for (int i = 0; i < 8; i++) {
+            pos = Randoms.randomItem(currentNode.getNeighbours()).toPosition(getPosition(),10,10);
+            if (!visitedNodeMap.containsKey(pos)) {
+                break;
+            }
         }
 
-        //Random move towards unvisisted Node similar to Request
+        visitedNodeMap.put(getPosition(), true);
+        /*Walk towards our target*/
+        walkTo(pos);
 
-        if (getPosition().equals(targetNeighbour.getValue())) {
-            visitedNodeMap.put(targetNeighbour.getValue(), true);
-            Node targetNode = network.getNode(targetNeighbour.getValue());
-            synchronizeNode(targetNode);
-            for (int i = 0; i < 8; i++) {
-                targetNeighbour = Randoms.randomItem(targetNode.getNeighbours());
-                if (!visitedNodeMap.containsKey(targetNeighbour.getValue())) {
-                    break;
+        synchronizeNode(network.getNode(getPosition()),oldPos);
+    }
+
+    public void synchronizeNode(Node node, Position nextDest) {
+
+
+        /*Map<UUID,Path> nodeRouting = node.getRoutingMap();
+        if(!nodeRouting.isEmpty()) {
+            /*Sync nodes routing into this agent
+            for (Entry<UUID, Path> entry : nodeRouting.entrySet()) {
+                if (!routingMap.containsKey(entry.getKey())) {
+                    routingMap.put(entry.getKey(), entry.getValue().getStepsToEvent());
+                } else {
+                    Integer stepsToEvent = routingMap.get(entry.getKey());
+                    if (entry.getValue().getStepsToEvent() < stepsToEvent)
+                        routingMap.put(entry.getKey(), entry.getValue().getStepsToEvent());
                 }
             }
+        }*/
 
-            setSteps(getSteps() + 1);
-            if (DEBUG && debugTarget == this) {
-                System.out.println("Agent changed target neighbour to " + targetNeighbour.getValue().toString());
-            }
+       // nodeRouting.clear();
+
+        for(Entry<UUID, Integer> entry : routingMap.entrySet()){
+            routingMap.put(entry.getKey(), entry.getValue() + 1);
         }
-
-        walkPath(targetNeighbour);
-
-        if (DEBUG && debugTarget == this) {
-            if (oldPos.getX() == getPosition().getX() && oldPos.getY() == getPosition().getY()) {
-                System.out.println("Agent didn't move at all!!");
-            } else {
-                System.out.println("Agent moved to " + getPosition().toString());
-            }
-            System.out.println("Agent's goal is " + targetNeighbour.getValue().toString());
-        }
-
-        //Update all the routes in Routing map.
-
-        for (Route route : routingMap.values()) {
-            route.add(getPosition());
+        for(Entry<UUID, Integer> entry : routingMap.entrySet()){
+            Path path = new Path(entry.getKey(), nextDest, entry.getValue());
+            node.getRoutingMap().put(entry.getKey(), path);
         }
     }
 
-    public void synchronizeNode(Node node) {
-
-       /*Sync agents routing into the node*/
-        if (DEBUG && debugTarget == this) {
-            System.out.println("Agent synchronized with " + node.getPosition());
-        }
-
-       /*Sync nodes routing into this agent*/
-        for (Entry<UUID, Route> entry : node.routingMap.entrySet()) {
-            if (!routingMap.containsKey(entry.getKey())) {
-                routingMap.put(entry.getKey(), entry.getValue().clone());
-            } else {
-                Route route = routingMap.get(entry.getKey());
-                if (entry.getValue().size() < route.size())
-                    routingMap.put(entry.getKey(), entry.getValue().clone());
-            }
-        }
-
-        node.routingMap = routingMap;
+    public void debug(){
+        //System.out.println("Agent ended: " + routingMap.size() + " routing size , " + getSteps() + " steps");
     }
 
     @Override

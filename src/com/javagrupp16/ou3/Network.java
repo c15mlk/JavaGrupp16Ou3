@@ -56,11 +56,14 @@ public class Network {
     public void timeTick(){
         if(counter >= 400){
             for(int i = 0 ; i < 4 ; i++){ //TODO change 1 to 4 again
-                Node randomNode = Randoms.randomItem(new ArrayList<>(nodes.values()));
-                /*Prevents nodes that already have information on a event asking for information on that event*/
-                for(int j = 0 ; j < eventIDList.size() ; j++){
-                    if(randomNode.requestEvent(Randoms.randomItem(eventIDList)))
-                        break;
+                if(!eventIDList.isEmpty()) {
+                    Node randomNode = Randoms.randomItem(new ArrayList<>(nodes.values()));
+                     /*Prevents nodes that already have information on a event asking for information on that event*/
+                    for (int j = 0; j < eventIDList.size(); j++) {
+                        if (randomNode.requestEvent(Randoms.randomItem(eventIDList))) {
+                            break;
+                        }
+                    }
                 }
             }
             counter = 0;
