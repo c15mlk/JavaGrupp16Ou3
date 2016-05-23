@@ -7,25 +7,21 @@ import java.util.UUID;
  */
 public class Path {
 
-    private final UUID eventUUID;
-    private final Position nextDest;
-    private final int stepsToEvent;
+	private final UUID eventUUID;
+	private final Position nextDest;
+	private final int stepsToEvent;
 
-    public Path(UUID uuid, Position nextDest, int stepsToEvent){
-        this.eventUUID = uuid;
-        this.nextDest = nextDest;
-        this.stepsToEvent = stepsToEvent;
-    }
+	public Path(UUID uuid, Position nextDest, int stepsToEvent) {
+		this.eventUUID = uuid;
+		this.nextDest = nextDest;
+		this.stepsToEvent = stepsToEvent;
+	}
 
-    public boolean compareSteps(int steps){
-        return steps < stepsToEvent;
-    }
+	public int getStepsToEvent() {
+		return stepsToEvent;
+	}
 
-    public int getStepsToEvent(){
-        return stepsToEvent;
-    }
-
-    public Position getNextDest(){
-        return nextDest;
-    }
+	public Position getNextDest() {
+		return nextDest;
+	}
 }

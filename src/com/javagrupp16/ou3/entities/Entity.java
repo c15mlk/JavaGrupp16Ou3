@@ -8,28 +8,28 @@ import com.javagrupp16.ou3.Position;
  **/
 
 public class Entity {
-    protected Network network;
-    private Position position;
+	protected Network network;
+	private Position position;
 
-    public Entity(Network network, Position position){
-        this.network = network;
-        this.position = position;
-    }
+	public Entity(Network network, Position position) {
+		this.network = network;
+		this.position = position;
+	}
 
-    public Position getPosition(){
-        return position;
-    }
+	public Position getPosition() {
+		return position;
+	}
 
-    public void setPosition(Position position){
-        if(position.equals(getPosition())){
-            throw new IllegalArgumentException("Attempting to move to same position");
-        }
-        int xDiff = Math.abs(getPosition().getX() - position.getX());
-        int yDiff = Math.abs(getPosition().getY() - position.getY());
-        if(xDiff > 10 || yDiff > 10)
-            throw new IllegalArgumentException("xDiff " + xDiff + " yDiff " + yDiff);
+	public void setPosition(Position position) {
+		if (position.equals(getPosition())) {
+			throw new IllegalStateException("Attempting to move to same position");
+		}
+		int xDiff = Math.abs(getPosition().getX() - position.getX());
+		int yDiff = Math.abs(getPosition().getY() - position.getY());
+		if (xDiff > 10 || yDiff > 10)
+			throw new IllegalStateException("xDiff " + xDiff + " yDiff " + yDiff);
 
-        this.position = position;
-    }
+		this.position = position;
+	}
 
 }
