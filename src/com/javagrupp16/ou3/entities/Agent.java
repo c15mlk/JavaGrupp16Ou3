@@ -11,7 +11,9 @@ import java.util.Map.Entry;
 import java.util.UUID;
 
 /**
- * Created by Marcus on 2016-05-17.
+ * Class that inherits from moveable and that represents and agent moving in
+ * an network.
+ * Created by Grupp 16 on 2016-05-17.
  **/
 public class Agent extends Moveable {
 
@@ -19,13 +21,22 @@ public class Agent extends Moveable {
 	private Map<Position, Boolean> visitedNodeMap = new HashMap<>();
 	private Map<UUID, Integer> routingMap = new HashMap<>();
 
-
+	/**
+	 * Constructor that initializes an agent.
+	 * @param network The network and agent exists in
+	 * @param maxSteps Maximum number of steps an agent can go.
+	 * @param node the node were the agent is created.
+     * @param eventID the unique id of the event that happened.
+     */
 	public Agent(Network network, int maxSteps, Node node, UUID eventID) {
 		super(network, node.getPosition());
 		this.maxSteps = maxSteps;
 		routingMap.put(eventID, 0);
 	}
 
+	/**
+	 * Method that the agent uses to move with.
+	 */
 	@Override
 	public void move() {
 
@@ -36,7 +47,8 @@ public class Agent extends Moveable {
 
 		Position pos = null;
 		for (int i = 0; i < 8; i++) {
-			pos = Randoms.randomItem(currentNode.getNeighbours()).toPosition(getPosition(), 10, 10);
+			pos = Randoms.randomItem(currentNode.getNeighbours()).
+					toPosition(getPosition(), 10, 10);
 			if (!visitedNodeMap.containsKey(pos)) {
 				break;
 			}
@@ -49,6 +61,12 @@ public class Agent extends Moveable {
 		synchronizeNode(network.getNode(getPosition()), oldPos);
 	}
 
+	/**
+	 * Method that synchronises the info of an agent and a node.
+	 * @param node the node the agent syncs with.
+	 * @param nextDest nest position to the event. meaning the position the
+	 *                 agent came from.
+     */
 	public void synchronizeNode(Node node, Position nextDest) {
 
 		for (Entry<UUID, Integer> entry : routingMap.entrySet()) {
@@ -70,7 +88,8 @@ public class Agent extends Moveable {
 			/*Sync nodes routing into this agent*/
 			for (Entry<UUID, Path> entry : nodeRouting.entrySet()) {
 				if (!routingMap.containsKey(entry.getKey())) {
-					routingMap.put(entry.getKey(), entry.getValue().getStepsToEvent());
+					routingMap.put(entry.getKey(),
+							entry.getValue().getStepsToEvent());
 				}
 			}
 		}

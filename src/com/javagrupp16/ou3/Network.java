@@ -14,6 +14,14 @@ public class Network {
 	public static final int AGENT_MAXSTEPS = 50;
 	public static final int REQUEST_MAXSTEPS = 45;
 
+	/**
+	 * Constructor that initializes a network of nodes, it also sets the
+	 * probability of the creation of an agent and an event.
+	 * @param height Determines the height of the network.
+	 * @param width Determines the height of the network.
+	 * @param agentProb Determines the chance that an agent is created.
+	 * @param eventProb Determines the chance that an event is created.
+     */
 	public Network(int height, int width, double agentProb, double eventProb) {
 		nodes = new HashMap<>(height * width);
 		eventIDList = new ArrayList<>(height * width);
@@ -34,6 +42,11 @@ public class Network {
 		}
 	}
 
+	/**
+	 * Method that checks there is a node on a given position.
+	 * @param position the position to be checked.
+	 * @return boolean: true if there is a node there otherwise false.
+     */
 	public boolean hasNode(Position position) {
 		return nodes.containsKey(position);
 	}
@@ -44,16 +57,24 @@ public class Network {
 		return null;
 	}
 
+	/**
+	 * methods that gets the probality for the creation of an agent.
+	 * @return double that has the probability of an agent creation.
+     */
 	public double getAgentProb() {
 		return agentProb;
 	}
 
+	/**
+	 * Method that advances the time of the network.
+	 */
 	public void timeTick() {
 		if (counter >= 400) {
-			for (int i = 0; i < 4; i++) { //TODO change 1 to 4 again
+			for (int i = 0; i < 4; i++) {
 				if (!eventIDList.isEmpty()) {
 					Node randomNode = Randoms.randomItem(new ArrayList<>(nodes.values()));
-					 /*Prevents nodes that already have information on a event asking for information on that event*/
+					 /*Prevents nodes that already have information on a
+					  event asking for information on that event*/
 					for (int j = 0; j < eventIDList.size(); j++) {
 						if (randomNode.requestEvent(Randoms.randomItem(eventIDList))) {
 							break;
