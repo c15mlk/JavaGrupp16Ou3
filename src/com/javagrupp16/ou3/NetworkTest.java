@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Created by Marcus on 2016-05-22.
+ * Created by Grupp-16 on 2016-05-22.
  */
 public class NetworkTest {
 	private Network network;

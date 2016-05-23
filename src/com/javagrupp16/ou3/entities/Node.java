@@ -69,7 +69,7 @@ public class Node extends Entity {
 	 * Updates all the {@link Moveable} objects that belong to this node.
 	 * Also checks so if the requests have exceeded a certain number of steps
 	 * and not returned with the information
-	 * and attempts to send a new {@Link Request} for that event.
+	 * and attempts to send a new Request for that event.
 	 * Also executes a single special action such as receiving information,
 	 * sending a request.
 	 */

@@ -8,7 +8,7 @@ import java.util.UUID;
 
 /**
  * Request.java
- * Represents a request sent by a {@Link Node}
+ * Represents a request sent by a Node.
  * Searches for the event-id given during construction.
  * Created by Grupp 16 on 2016-05-17.
  **/

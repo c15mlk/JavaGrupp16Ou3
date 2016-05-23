@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Created by Marcus on 2016-05-22.
+ * Created by Grupp-16 on 2016-05-22.
  */
 public class RandomsTest {
 

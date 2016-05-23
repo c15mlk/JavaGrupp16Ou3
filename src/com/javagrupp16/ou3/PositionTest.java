@@ -3,7 +3,7 @@ package com.javagrupp16.ou3;
 import org.junit.Test;
 
 /**
- * Created by Marcus on 2016-05-22.
+ * Created by Grupp-16  on 2016-05-22.
  */
 public class PositionTest {
 
