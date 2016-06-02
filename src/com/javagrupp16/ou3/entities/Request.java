@@ -51,7 +51,7 @@ public class Request extends Moveable {
 		if (info != null) {
 			if (!stack.isEmpty()) {
 				Position p = stack.pop();
-				setPosition(p);
+				walkTo(p);
 				if (getPosition().equals(sourceNode.getPosition())) {
 					sourceNode.receiveEvent(info.toString(), getSteps(), network.getTime());
 					setComplete(true);

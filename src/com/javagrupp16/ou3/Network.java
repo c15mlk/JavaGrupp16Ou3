@@ -69,7 +69,7 @@ public class Network {
 	/**
 	 * Method that advances the time of the network.
 	 */
-	protected void timeTick() {
+	public void timeTick() {
 		if (counter >= 400) {
 			for (int i = 0; i < 4; i++) {
 				if (!eventIDList.isEmpty()) {
@@ -103,7 +103,7 @@ public class Network {
 	}
 
 
-	protected List<UUID> getEventIDList() {
+	public List<UUID> getEventIDList() {
 		return eventIDList;
 	}
 
