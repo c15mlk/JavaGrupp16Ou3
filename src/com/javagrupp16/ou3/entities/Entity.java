@@ -21,6 +21,10 @@ public class Entity {
 		this.position = position;
 	}
 
+	/**
+	 * method that gets the position of an entity.
+	 * @return the postion of the entity.
+     */
 	public Position getPosition() {
 		return position;
 	}

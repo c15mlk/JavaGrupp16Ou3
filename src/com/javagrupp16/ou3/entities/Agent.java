@@ -35,6 +35,7 @@ public class Agent extends Moveable {
 
 	/**
 	 * Method that the agent uses to move with.
+	 * @param network the network that the agent will move in.
 	 */
 	@Override
 	public void move(Network network) {
@@ -63,7 +64,7 @@ public class Agent extends Moveable {
 	/**
 	 * Method that synchronises the info of an agent and a node.
 	 * @param node the node the agent syncs with.
-	 * @param nextDest nest position to the event. meaning the position the
+	 * @param nextDest next position to the event. meaning the position the
 	 *                 agent came from.
      */
 	public void synchronizeNode(Node node, Position nextDest) {
@@ -95,6 +96,10 @@ public class Agent extends Moveable {
 
 	}
 
+	/**
+	 * method that checks if an agent is done.
+	 * @return boolean: true if done, otherwise false.
+     */
 	@Override
 	public boolean isComplete() {
 		if (getSteps() >= maxSteps) {

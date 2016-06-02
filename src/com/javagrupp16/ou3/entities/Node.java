@@ -30,6 +30,8 @@ public class Node extends Entity {
 	 * The node detects a event with the given UUID.
 	 * There's a chance of a agent emerging with the event.
 	 * @param uuid the event's uuid
+	 * @param time the time of the event
+	 * @param agentProb the probability that an agent is created.
      */
 	public void detectEvent(UUID uuid, int time, double agentProb) {
 		Event event = new Event(uuid, getPosition(), time);
@@ -43,6 +45,7 @@ public class Node extends Entity {
 	/**
 	 * Sends a request for the given Event-ID if the node doesn't have information on the event.
 	 * @param uuid the Event-ID
+	 * @param time the time that the event happened.
 	 * @return boolean representing if this node already has information on this event.
      */
 	public boolean requestEvent(UUID uuid, int time) {
@@ -65,12 +68,30 @@ public class Node extends Entity {
 	}
 
 	/**
+	 * Receives information from a request returning with the information
+	 * @param info the information that was received.
+	 * @param steps nr of steps toward the event.
+     * @param time the time of the request return.
+     */
+	public void receiveEvent(final String info, final int steps, final int time) {
+		runnableQue.add(new Runnable() {
+			@Override
+			public void run() {
+				System.out.println(time + ": Request returned with information in " + steps + " steps from position " + getPosition());
+				System.out.println(time + ": " + info);
+			}
+		});
+
+	}
+
+	/**
 	 * Updates all the {@link Moveable} objects that belong to this node.
 	 * Also checks so if the requests have exceeded a certain number of steps
 	 * and not returned with the information
 	 * and attempts to send a new Request for that event.
 	 * Also executes a single special action such as receiving information,
 	 * sending a request.
+	 * @param network the network that the node belongs to.
 	 */
 	public void timeTick(Network network) {
 		Deque<Moveable> removeQue = new ArrayDeque<>();
@@ -96,25 +117,17 @@ public class Node extends Entity {
 	}
 
 	/**
-	 * Receives information from a request returning with the information.
-	 * Marks the request for removal.
+	 * gets the variable routingMap
+	 * @return a Map variable.
      */
-	public void receiveEvent(final String info, final int steps, final int time) {
-		runnableQue.add(new Runnable() {
-			@Override
-			public void run() {
-				System.out.println(time + ": Request returned with information in " + steps + " steps from position " + getPosition());
-				System.out.println(time + ": " + info);
-			}
-		});
-
-	}
-
-
 	public Map<UUID, Path> getRoutingMap() {
 		return routingMap;
 	}
 
+	/**
+	 * gets the variable getNeighbours
+	 * @return a list variable.
+     */
 	public List<Direction> getNeighbours() {
 		return neighbours;
 	}
