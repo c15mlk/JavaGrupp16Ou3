@@ -12,9 +12,6 @@ public class Network {
 	private int numberOfTicks, counter;
 	private double agentProb, eventProb;
 
-	public static final int AGENT_MAXSTEPS = 50;
-	public static final int REQUEST_MAXSTEPS = 45;
-
 	/**
 	 * Constructor that initializes a network of nodes, it also sets the
 	 * probability of the creation of an agent and an event.
@@ -72,7 +69,7 @@ public class Network {
 	/**
 	 * Method that advances the time of the network.
 	 */
-	public void timeTick() {
+	protected void timeTick() {
 		if (counter >= 400) {
 			for (int i = 0; i < 4; i++) {
 				if (!eventIDList.isEmpty()) {
@@ -106,7 +103,7 @@ public class Network {
 	}
 
 
-	public List<UUID> getEventIDList() {
+	protected List<UUID> getEventIDList() {
 		return eventIDList;
 	}
 

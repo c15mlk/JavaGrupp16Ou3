@@ -26,13 +26,12 @@ public class Request extends Moveable {
 
 	/**
 	 * Constructs a Request with the given parameters.
-	 * @param position the starting position
 	 * @param uuid the event-id of the event it searches for.
 	 * @param node the node that sent it.
      * @param maxSteps the maximum number of steps it can take.
      */
-	public Request(Position position, UUID uuid, Node node, int maxSteps) {
-		super(position);
+	public Request(UUID uuid, Node node, int maxSteps) {
+		super(node.getPosition());
 		this.maxSteps = maxSteps;
 		this.eventUUID = uuid;
 		this.sourceNode = node;
@@ -54,9 +53,9 @@ public class Request extends Moveable {
 				Position p = stack.pop();
 				setPosition(p);
 				if (getPosition().equals(sourceNode.getPosition())) {
-
-					sourceNode.receiveEvent(this, network.getTime());
+					sourceNode.receiveEvent(info.toString(), getSteps(), network.getTime());
 					setComplete(true);
+					sourceNode.expectedInfo.remove(eventUUID);
 				}
 			}
 			return;
@@ -95,18 +94,6 @@ public class Request extends Moveable {
 		/*Add how we walked to the stack*/
 		stack.addFirst(getPosition());
 
-	}
-
-	/**
-	 * Called before the Request is removed from the nodes list.
-	 * Removes itself from the sourceNodes expectedInfo.
-	 */
-	public void onRemove() {
-		sourceNode.expectedInfo.remove(eventUUID);
-	}
-
-	public Event getInfo() {
-		return info;
 	}
 
 	/**

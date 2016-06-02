@@ -14,7 +14,7 @@ public class Node extends Entity {
 	private final List<Direction> neighbours = new ArrayList<>();
 	protected final Map<UUID, Event> eventsMap = new HashMap<UUID, Event>();
 	private Map<UUID, Path> routingMap = new HashMap<>();
-	private final Map<Moveable, Moveable> moveableList = new HashMap<>();
+	private final Map<Moveable, Moveable> moveableMap = new HashMap<>();
 	private final ArrayDeque<Runnable> runnableQue = new ArrayDeque<Runnable>();
 	protected final Map<UUID, Integer> expectedInfo = new HashMap<>();
 
@@ -35,8 +35,8 @@ public class Node extends Entity {
 		Event event = new Event(uuid, getPosition(), time);
 		eventsMap.put(uuid, event);
 		if (Randoms.chanceOf(agentProb)) {
-			Agent agent = new Agent(Network.AGENT_MAXSTEPS, this, uuid);
-			moveableList.put(agent, agent);
+			Agent agent = new Agent(NetworkMain.AGENT_MAX_STEPS, this, uuid);
+			moveableMap.put(agent, agent);
 		}
 	}
 
@@ -49,7 +49,7 @@ public class Node extends Entity {
 		if (eventsMap.containsKey(uuid)) {
 			return false;
 		}
-		final Request request = new Request(getPosition(), uuid, this, Network.REQUEST_MAXSTEPS);
+		final Request request = new Request(uuid, this, NetworkMain.REQUEST_MAX_STEPS);
 		if (expectedInfo.containsKey(uuid)) {
 			expectedInfo.remove(uuid);
 		} else {
@@ -58,7 +58,7 @@ public class Node extends Entity {
 		runnableQue.add(new Runnable() {
 			@Override
 			public void run() {
-				moveableList.put(request, request);
+				moveableMap.put(request, request);
 			}
 		});
 		return true;
@@ -74,7 +74,7 @@ public class Node extends Entity {
 	 */
 	public void timeTick(Network network) {
 		Deque<Moveable> removeQue = new ArrayDeque<>();
-		for (final Moveable moveable : moveableList.values()) {
+		for (final Moveable moveable : moveableMap.values()) {
 			if (moveable.isComplete()) {
 				removeQue.add(moveable);
 			} else {
@@ -83,12 +83,10 @@ public class Node extends Entity {
 		}
 		while (!removeQue.isEmpty()) {
 			Moveable moveable = removeQue.pop();
-			if (moveable instanceof Request)
-				((Request) moveable).onRemove();
-			moveableList.remove(moveable);
+			moveableMap.remove(moveable);
 		}
 		for (Map.Entry<UUID, Integer> entry : expectedInfo.entrySet()) {
-			if ((network.getTime() - entry.getValue()) > Network.REQUEST_MAXSTEPS * 8) {
+			if ((network.getTime() - entry.getValue()) > NetworkMain.REQUEST_MAX_STEPS * 8) {
 				requestEvent(entry.getKey(), network.getTime());
 			}
 		}
@@ -100,17 +98,16 @@ public class Node extends Entity {
 	/**
 	 * Receives information from a request returning with the information.
 	 * Marks the request for removal.
-	 * @param request the request
      */
-	public void receiveEvent(final Request request, final int time) {
+	public void receiveEvent(final String info, final int steps, final int time) {
 		runnableQue.add(new Runnable() {
 			@Override
 			public void run() {
-				System.out.println(time + ": Request returned with information in " + request.getSteps() + " steps from position " + request.getPosition());
-				System.out.println(time + ": " + request.getInfo().toString());
+				System.out.println(time + ": Request returned with information in " + steps + " steps from position " + getPosition());
+				System.out.println(time + ": " + info);
 			}
 		});
-		request.setComplete(true);
+
 	}
 
 

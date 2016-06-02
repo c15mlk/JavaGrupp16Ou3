@@ -21,11 +21,11 @@ public class RandomsTest {
 		counter = 0;
 
 		for (int i = 0; i < 100; i++) {
-			if (Randoms.chanceOf(50)) {
+			if (Randoms.chanceOf(0)) {
 				counter++;
 			}
 		}
-		assert (counter > 25 && counter < 80);
+		assertEquals(counter, 0);
 		System.out.println("Counter " + counter);
 	}
 

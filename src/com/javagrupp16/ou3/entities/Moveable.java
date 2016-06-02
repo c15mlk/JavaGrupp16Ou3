@@ -3,6 +3,8 @@ package com.javagrupp16.ou3.entities;
 import com.javagrupp16.ou3.Network;
 import com.javagrupp16.ou3.Position;
 
+import java.util.Map;
+
 /**
  * Moveable.java
  * An abstract class representing a moveable entity.
@@ -43,7 +45,5 @@ public abstract class Moveable extends Entity {
 	public void setComplete(boolean b) {
 		this.complete = b;
 	}
-
-
 
 }
