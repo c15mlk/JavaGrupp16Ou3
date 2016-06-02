@@ -23,6 +23,10 @@ public abstract class Moveable extends Entity {
 		super(position);
 	}
 
+	/**
+	 * Abstrakt method for moving.
+	 * @param network the network that the object will move in.
+     */
 	public abstract void move(Network network);
 
 	/**
@@ -34,14 +38,26 @@ public abstract class Moveable extends Entity {
 		steps++;
 	}
 
+	/**
+	 * gets the variable steps.
+	 * @return integer called steps.
+     */
 	public int getSteps() {
 		return steps;
 	}
 
+	/**
+	 * checks if a moveable is complete.
+	 * @return boolean: true or false.
+     */
 	public boolean isComplete() {
 		return complete;
 	}
 
+	/**
+	 * sets the variable complete as true or false.
+	 * @param b containing a boolean: true or false.
+     */
 	public void setComplete(boolean b) {
 		this.complete = b;
 	}
