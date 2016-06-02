@@ -14,15 +14,14 @@ public abstract class Moveable extends Entity {
 	private boolean complete = false;
 
 	/**
-	 * Constructs a Moveable.
-	 * @param network the network it belongs to.
+	 * Constructs a Moveable
 	 * @param position the moveable's starting position
      */
-	public Moveable(Network network, Position position) {
-		super(network, position);
+	public Moveable(Position position) {
+		super(position);
 	}
 
-	public abstract void move();
+	public abstract void move(Network network);
 
 	/**
 	 * A method used to walk to a position
@@ -44,5 +43,7 @@ public abstract class Moveable extends Entity {
 	public void setComplete(boolean b) {
 		this.complete = b;
 	}
+
+
 
 }

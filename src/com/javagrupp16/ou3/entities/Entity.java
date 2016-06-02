@@ -9,17 +9,15 @@ import com.javagrupp16.ou3.Position;
  **/
 
 public class Entity {
-	protected Network network;
+
 	private Position position;
 
 	/**
-	 * Constructor that initializes an entity in the network at a given
+	 * Constructor that initializes an entity at a given
 	 * position.
-	 * @param network the network the entity exists in.
-	 * @param position the position the will be created entity at.
+	 * @param position the position created entity will be at.
      */
-	public Entity(Network network, Position position) {
-		this.network = network;
+	public Entity(Position position) {
 		this.position = position;
 	}
 
@@ -30,7 +28,7 @@ public class Entity {
 	/**
 	 * Method that sets the position of an entity.
 	 * @param position the position the entity will be set to.
-     */
+	 */
 	public void setPosition(Position position) {
 		if (position.equals(getPosition())) {
 			throw new IllegalStateException("Attempting to move to same position");
@@ -42,5 +40,6 @@ public class Entity {
 
 		this.position = position;
 	}
+
 
 }

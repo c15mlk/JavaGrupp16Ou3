@@ -23,13 +23,12 @@ public class Agent extends Moveable {
 
 	/**
 	 * Constructor that initializes an agent.
-	 * @param network The network and agent exists in
 	 * @param maxSteps Maximum number of steps an agent can go.
 	 * @param node the node were the agent is created.
      * @param eventID the unique id of the event that happened.
      */
-	public Agent(Network network, int maxSteps, Node node, UUID eventID) {
-		super(network, node.getPosition());
+	public Agent(int maxSteps, Node node, UUID eventID) {
+		super(node.getPosition());
 		this.maxSteps = maxSteps;
 		routingMap.put(eventID, 0);
 	}
@@ -38,9 +37,9 @@ public class Agent extends Moveable {
 	 * Method that the agent uses to move with.
 	 */
 	@Override
-	public void move() {
+	public void move(Network network) {
 
-		Node currentNode = network.getNode(getPosition());
+		Node currentNode = network.getNode(this);
 
 
 		Position oldPos = getPosition();
@@ -58,7 +57,7 @@ public class Agent extends Moveable {
 		/*Walk towards our target*/
 		walkTo(pos);
 
-		synchronizeNode(network.getNode(getPosition()), oldPos);
+		synchronizeNode(network.getNode(this), oldPos);
 	}
 
 	/**

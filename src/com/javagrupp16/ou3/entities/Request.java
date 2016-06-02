@@ -26,14 +26,13 @@ public class Request extends Moveable {
 
 	/**
 	 * Constructs a Request with the given parameters.
-	 * @param network the network it belongs to.
 	 * @param position the starting position
 	 * @param uuid the event-id of the event it searches for.
 	 * @param node the node that sent it.
      * @param maxSteps the maximum number of steps it can take.
      */
-	public Request(Network network, Position position, UUID uuid, Node node, int maxSteps) {
-		super(network, position);
+	public Request(Position position, UUID uuid, Node node, int maxSteps) {
+		super(position);
 		this.maxSteps = maxSteps;
 		this.eventUUID = uuid;
 		this.sourceNode = node;
@@ -46,7 +45,7 @@ public class Request extends Moveable {
 	 * When it reaches the event it will start backtracking with this information.
 	 */
 	@Override
-	public void move() {
+	public void move(Network network) {
 
 		/*If we have info on the event
 		 *We want to go back the way we walked to get the info.*/
@@ -56,7 +55,7 @@ public class Request extends Moveable {
 				setPosition(p);
 				if (getPosition().equals(sourceNode.getPosition())) {
 
-					sourceNode.receiveEvent(this);
+					sourceNode.receiveEvent(this, network.getTime());
 					setComplete(true);
 				}
 			}
@@ -65,7 +64,7 @@ public class Request extends Moveable {
 
 		/*Assert that the request is on a node*/
 		if (network.hasNode(getPosition())) {
-			Node targetNode = network.getNode(getPosition());
+			Node targetNode = network.getNode(this);
 			/*if it is has a path to the event.*/
 			Map<UUID, Path> routingMap = targetNode.getRoutingMap();
 			if (routingMap.containsKey(eventUUID)) {
@@ -84,7 +83,7 @@ public class Request extends Moveable {
 
 			/*If we stand on a node and the node contains info on the event.*/
 			/*Store the info and reset steps and return.*/
-			targetNode = network.getNode(getPosition());
+			targetNode = network.getNode(this);
 			if (targetNode.eventsMap.containsKey(eventUUID)) {
 				this.info = targetNode.eventsMap.get(eventUUID);
 				return;

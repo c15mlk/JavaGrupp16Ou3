@@ -17,9 +17,7 @@ public class NetworkTest {
 	@Test
 	public void nodeTest() {
 		assert (network.hasNode(new Position(0, 0)));
-		assert (network.getNode(new Position(0, 0)) != null);
 		assert (network.hasNode(new Position(0, 10)));
-		assert (network.getNode(new Position(0, 0)) != null);
 	}
 
 	@Test

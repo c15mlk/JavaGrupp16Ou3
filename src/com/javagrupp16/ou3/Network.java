@@ -1,5 +1,6 @@
 package com.javagrupp16.ou3;
 
+import com.javagrupp16.ou3.entities.Moveable;
 import com.javagrupp16.ou3.entities.Node;
 
 import java.util.*;
@@ -30,14 +31,17 @@ public class Network {
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				Position p = new Position(x * 10, y * 10);
-				Node node = new Node(this, p);
+				Node node = new Node(p);
 				nodes.put(p, node);
 			}
 		}
 
 		for (Node n : nodes.values()) {
 			for (Direction d : Direction.values()) {
-				n.addNeighbourAt(d);
+				Position p = d.toPosition(n.getPosition(), 10, 10);
+				if (hasNode(p)) {
+					n.addNeighbourIn(d);
+				}
 			}
 		}
 	}
@@ -51,9 +55,9 @@ public class Network {
 		return nodes.containsKey(position);
 	}
 
-	public Node getNode(Position position) {
-		if (nodes.containsKey(position))
-			return nodes.get(position);
+	public Node getNode(Moveable moveable) {
+		if (nodes.containsKey(moveable.getPosition()))
+			return nodes.get(moveable.getPosition());
 		return null;
 	}
 
@@ -76,7 +80,7 @@ public class Network {
 					 /*Prevents nodes that already have information on a
 					  event asking for information on that event*/
 					for (int j = 0; j < eventIDList.size(); j++) {
-						if (randomNode.requestEvent(Randoms.randomItem(eventIDList))) {
+						if (randomNode.requestEvent(Randoms.randomItem(eventIDList), getTime())) {
 							break;
 						}
 					}
@@ -86,11 +90,11 @@ public class Network {
 		}
 
 		for (final Node n : nodes.values()) {
-			n.timeTick();
+			n.timeTick(this);
 			if (Randoms.chanceOf(eventProb)) {
 				UUID uuid = UUID.randomUUID();
 				eventIDList.add(uuid);
-				n.detectEvent(uuid);
+				n.detectEvent(uuid, getTime(), getAgentProb());
 			}
 		}
 		counter++;
