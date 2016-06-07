@@ -16,7 +16,7 @@ public class Network {
 	 * Constructor that initializes a network of nodes, it also sets the
 	 * probability of the creation of an agent and an event.
 	 * @param height Determines the height of the network.
-	 * @param width Determines the height of the network.
+	 * @param width Determines the width of the network.
 	 * @param agentProb Determines the chance that an agent is created.
 	 * @param eventProb Determines the chance that an event is created.
      */
@@ -52,6 +52,11 @@ public class Network {
 		return nodes.containsKey(position);
 	}
 
+	/**
+	 * Gets the node in an network.
+	 * @param moveable an agent or request that has the position of a node
+     * @return a node in the network.
+     */
 	public Node getNode(Moveable moveable) {
 		if (nodes.containsKey(moveable.getPosition()))
 			return nodes.get(moveable.getPosition());
@@ -98,11 +103,19 @@ public class Network {
 		numberOfTicks++;
 	}
 
+	/**
+	 * gets the time of the Network. the number of tics the network has
+	 * worked for.
+	 * @return an int that contains the number of tics.
+     */
 	public int getTime() {
 		return numberOfTicks;
 	}
 
-
+	/**
+	 * gets the eventIDList of the Network.
+	 * @return a list containing the event IDs.
+     */
 	public List<UUID> getEventIDList() {
 		return eventIDList;
 	}

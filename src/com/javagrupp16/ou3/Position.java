@@ -20,10 +20,18 @@ public class Position {
 		this.y = y;
 	}
 
-
+	/**
+	 * gets the x value of a position.
+	 * @return an int containing the x value.
+     */
 	public int getX() {
 		return this.x;
 	}
+
+	/**
+	 * gets the y value of a position.
+	 * @return an int containing the y value.
+	 */
 
 	public int getY() {
 		return this.y;
@@ -44,6 +52,10 @@ public class Position {
 		return false;
 	}
 
+	/**
+	 * method that creates a hashcode to a position.
+	 * @return an int containing the hashcode.
+     */
 	@Override
 	public int hashCode() {
 		int result = x;
@@ -51,6 +63,10 @@ public class Position {
 		return result;
 	}
 
+	/**
+	 * method that creates a string of a position.
+	 * @return string of a position.
+     */
 	@Override
 	public String toString() {
 		return "x: " + x + " y:" + y;

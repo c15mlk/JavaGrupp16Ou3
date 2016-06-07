@@ -24,10 +24,18 @@ public class Path {
 		this.stepsToEvent = stepsToEvent;
 	}
 
+	/**
+	 * gets the variable stepsToEvent.
+	 * @return an int containing the nr of steps to an Event.
+     */
 	public int getStepsToEvent() {
 		return stepsToEvent;
 	}
 
+	/**
+	 * gets the nextDest of the Path.
+	 * @return a position that is the next destination on the path.
+     */
 	public Position getNextDest() {
 		return nextDest;
 	}

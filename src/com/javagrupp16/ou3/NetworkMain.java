@@ -19,7 +19,8 @@ public class NetworkMain {
 
 	public static void main(String[] args) {
 
-		final Network network = new Network(NETWORK_WIDTH, NETWORK_HEIGHT, NETWORK_AGENT_PROB, NETWORK_EVENT_PROB);
+		final Network network = new Network(NETWORK_HEIGHT, NETWORK_WIDTH,
+				NETWORK_AGENT_PROB, NETWORK_EVENT_PROB);
 
 		System.setOut(new PrintStream(System.out) {
 			@Override

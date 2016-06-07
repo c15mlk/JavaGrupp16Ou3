@@ -1,6 +1,5 @@
 package com.javagrupp16.ou3.entities;
 
-import com.javagrupp16.ou3.Network;
 import com.javagrupp16.ou3.Position;
 
 /**
@@ -23,7 +22,7 @@ public class Entity {
 
 	/**
 	 * method that gets the position of an entity.
-	 * @return the postion of the entity.
+	 * @return the position of the entity.
      */
 	public Position getPosition() {
 		return position;

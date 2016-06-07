@@ -2,6 +2,11 @@ package com.javagrupp16.ou3.entities;
 
 import com.javagrupp16.ou3.Network;
 import com.javagrupp16.ou3.Position;
+<<<<<<< HEAD
+=======
+
+import org.junit.Before;
+>>>>>>> origin/master
 import org.junit.Test;
 
 import java.lang.reflect.Field;
