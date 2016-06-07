@@ -43,7 +43,9 @@ public class Node extends Entity {
 	}
 
 	/**
-	 * Sends a request for the given Event-ID if the node doesn't have information on the event.
+	 * Creates a request for the given Event-ID if the node doesn't have information on the event.
+	 * Schedules the request to be added to the node when timeTick() is called
+	 * and it is first in the que.
 	 * @param uuid the Event-ID
 	 * @param time the time that the event happened.
 	 * @return boolean representing if this node already has information on this event.
@@ -53,11 +55,7 @@ public class Node extends Entity {
 			return false;
 		}
 		final Request request = new Request(uuid, this, NetworkMain.REQUEST_MAX_STEPS);
-		if (expectedInfo.containsKey(uuid)) {
-			expectedInfo.remove(uuid);
-		} else {
-			expectedInfo.put(uuid, time);
-		}
+		expectedInfo.put(uuid, time);
 		runnableQue.add(new Runnable() {
 			@Override
 			public void run() {
@@ -68,7 +66,27 @@ public class Node extends Entity {
 	}
 
 	/**
+	 * Creates a new Request for the specified eventUUID.
+	 * Only called by the node when it should resend requests.
+	 * @param uuid
+     */
+	private void resendRequest(UUID uuid){
+		if (eventsMap.containsKey(uuid)) {
+			return;
+		}
+		final Request request = new Request(uuid, this, NetworkMain.REQUEST_MAX_STEPS);
+		runnableQue.add(new Runnable() {
+			@Override
+			public void run() {
+				moveableMap.put(request, request);
+			}
+		});
+	}
+
+	/**
 	 * Receives information from a request returning with the information
+	 * Schedules the information to be printed when timeTick() is called
+	 * and it is first in the que.
 	 * @param info the information that was received.
 	 * @param steps nr of steps toward the event.
      * @param time the time of the request return.
@@ -106,9 +124,13 @@ public class Node extends Entity {
 			Moveable moveable = removeQue.pop();
 			moveableMap.remove(moveable);
 		}
-		for (Map.Entry<UUID, Integer> entry : expectedInfo.entrySet()) {
+
+		Iterator<Map.Entry<UUID,Integer>> iterator = expectedInfo.entrySet().iterator();
+		while(iterator.hasNext()) {
+			Map.Entry<UUID, Integer> entry = iterator.next();
 			if ((network.getTime() - entry.getValue()) > NetworkMain.REQUEST_MAX_STEPS * 8) {
-				requestEvent(entry.getKey(), network.getTime());
+				resendRequest(entry.getKey());
+				iterator.remove();
 			}
 		}
 		if (!runnableQue.isEmpty()) {

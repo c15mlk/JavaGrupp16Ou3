@@ -12,7 +12,7 @@ public class NetworkMain {
 
 	public static final int AGENT_MAX_STEPS = 50;
 	public static final int REQUEST_MAX_STEPS = 45;
-	public static final int NETWORK_WIDTH = 50;
+	public static final int NETWORK_WIDTH = 1;
 	public static final int NETWORK_HEIGHT = 50;
 	public static final int NETWORK_AGENT_PROB = 50;
 	public static final double NETWORK_EVENT_PROB = 0.01;

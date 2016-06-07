@@ -2,11 +2,6 @@ package com.javagrupp16.ou3.entities;
 
 import com.javagrupp16.ou3.Network;
 import com.javagrupp16.ou3.Position;
-<<<<<<< HEAD
-=======
-
-import org.junit.Before;
->>>>>>> origin/master
 import org.junit.Test;
 
 import java.lang.reflect.Field;
@@ -47,10 +42,10 @@ public class RequestTest {
 
     @Test
     public void checkSoRequestFollowsPath() throws Exception {
-        Node n = initNetwork(1,50,0);
+        Node n = initNetwork(1,30,0);
         Request request = findRequest(n);
 
-        Position pos = new Position(490,0);
+        Position pos = new Position(290,0);
 
         assert(network.hasNode(pos));
         Node n2 = getNode(pos);
