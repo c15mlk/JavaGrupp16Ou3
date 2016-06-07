@@ -16,7 +16,7 @@ public class Network {
 	 * Constructor that initializes a network of nodes, it also sets the
 	 * probability of the creation of an agent and an event.
 	 * @param height Determines the height of the network.
-	 * @param width Determines the height of the network.
+	 * @param width Determines the width of the network.
 	 * @param agentProb Determines the chance that an agent is created.
 	 * @param eventProb Determines the chance that an event is created.
      */
