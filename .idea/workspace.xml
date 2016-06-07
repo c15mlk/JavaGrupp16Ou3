@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="439bfa94-9f28-443b-ab92-f20eb0a41b9a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/javagrupp16/ou3/Network.java" afterPath="$PROJECT_DIR$/src/com/javagrupp16/ou3/Network.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/javagrupp16/ou3/NetworkMain.java" afterPath="$PROJECT_DIR$/src/com/javagrupp16/ou3/NetworkMain.java" />
     </list>
     <ignored path="JavaGrupp16Ou3.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -785,7 +783,14 @@
       <option name="project" value="LOCAL" />
       <updated>1465301241726</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="liten fix">
+      <created>1465301927792</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1465301927792</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -876,7 +881,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="event" />
     <MESSAGE value="Fixat till alla JavaDoc kommentarer" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixat till alla JavaDoc kommentarer" />
+    <MESSAGE value="liten fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="liten fix" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
