@@ -42,6 +42,7 @@ public class Request extends Moveable {
 	 * Moves to a random neighbour if no path to event is found.
 	 * If the path to the event is found then it walk according to that path.
 	 * When it reaches the event it will start backtracking with this information.
+	 * @param network the network that the request moves in.
 	 */
 	@Override
 	public void move(Network network) {

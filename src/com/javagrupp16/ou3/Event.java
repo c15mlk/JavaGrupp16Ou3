@@ -25,10 +25,18 @@ public class Event {
 		this.time = time;
 	}
 
+	/**
+	 * Method that gets the position of an event.
+	 * @return the position of an event.
+     */
 	public Position getPosition() {
 		return position;
 	}
 
+	/**
+	 * creates a string of the information of an evenet
+	 * @return String of event information.
+     */
 	@Override
 	public String toString() {
 		return "Time of Event: " + time + " Event-Location: " + position.toString() + " Event: " + id.toString();
