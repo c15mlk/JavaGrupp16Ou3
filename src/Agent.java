@@ -4,8 +4,8 @@ import java.util.Map.Entry;
 import java.util.UUID;
 
 /**
- * Class that inherits from moveable and that represents and agent moving in
- * an network.
+ * Class that inherits from moveable and that represents an agent moving in
+ * a network.
  * Created by Grupp 16 on 2016-05-17.
  **/
 public class Agent extends Moveable {
@@ -64,7 +64,7 @@ public class Agent extends Moveable {
 
 		for (Entry<UUID, Integer> entry : routingMap.entrySet()) {
 			routingMap.put(entry.getKey(), entry.getValue() + 1);
-			Path path = new Path(entry.getKey(), nextDest, entry.getValue());
+			Path path = new Path(nextDest, entry.getValue());
 			if (!node.getRoutingMap().containsKey(entry.getKey())) {
 				node.getRoutingMap().put(entry.getKey(), path);
 			} else {

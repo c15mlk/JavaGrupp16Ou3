@@ -8,7 +8,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 /**
- * Created by Marcus on 2016-06-02.
+ * Created by Grupp 16 on 2016-06-02.
  */
 public class RequestTest {
     private Network network;
@@ -18,7 +18,6 @@ public class RequestTest {
     public void checkSoRequestMovesWhenItShould() throws Exception {
         Node n = initNetwork(50,50,0);
         Request request = findRequest(n);
-
         for(int i = 0 ; i < 45 ; i++) {
             Position oldPos = request.getPosition();
             int steps = request.getSteps();
@@ -27,13 +26,23 @@ public class RequestTest {
             assertEquals(steps+1, request.getSteps());
         }
         assert(request.isComplete());
-        for(int i = 0 ; i < 45 ; i++){
+        network.timeTick();
+
+        /*Checks so request is removed after being complete*/
+        Request request1 = findRequest(n);
+        assertEquals(request1, null);
+
+        for(int i = 0 ; i < (45 * 7) + 1 ; i++){
             Position oldPos = request.getPosition();
             int steps = request.getSteps();
             network.timeTick();
             assertEquals(oldPos, request.getPosition());
             assertEquals(steps, request.getSteps());
         }
+        /*Checks so request is resent after 8 * 45 timeticks */
+        request1 = findRequest(n);
+        assertNotEquals(request1, null);
+        assertNotEquals(request1, request);
     }
 
     @Test

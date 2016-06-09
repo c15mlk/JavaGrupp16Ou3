@@ -20,7 +20,7 @@ public class Path {
 	}
 
 	/**
-	 * gets the variable stepsToEvent.
+	 * Gets the amount of steps needed to the event.
 	 * @return an int containing the nr of steps to an Event.
      */
 	public int getStepsToEvent() {
@@ -28,7 +28,7 @@ public class Path {
 	}
 
 	/**
-	 * gets the nextDest of the Path.
+	 * Gets the next position to reach the event.
 	 * @return a position that is the next destination on the path.
      */
 	public Position getNextDest() {

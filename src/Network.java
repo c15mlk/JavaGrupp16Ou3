@@ -1,5 +1,11 @@
 import java.util.*;
 
+
+/**
+ * Network.java
+ * Simulates a network.
+ * Created by Grupp 16 on 2016-05-17.
+ **/
 public class Network {
 
 	private Map<Position, Node> nodes;
@@ -48,7 +54,7 @@ public class Network {
 	}
 
 	/**
-	 * Gets the node in an network.
+	 * Gets the node a moveable stands on.
 	 * @param moveable an agent or request that has the position of a node
      * @return a node in the network.
      */
@@ -59,7 +65,7 @@ public class Network {
 	}
 
 	/**
-	 * methods that gets the probality for the creation of an agent.
+	 * Returns the agent probability of the network.
 	 * @return double that has the probability of an agent creation.
      */
 	public double getAgentProb() {

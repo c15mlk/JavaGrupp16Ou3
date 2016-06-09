@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 /**
- * Created by Marcus on 2016-06-07.
+ * Created by Grupp 16 on 2016-06-07.
  */
 public class AgentTest {
     private Network network;

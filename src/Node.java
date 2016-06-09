@@ -135,7 +135,7 @@ public class Node extends Entity {
 	}
 
 	/**
-	 * gets the variable routingMap
+	 * Gets the routing map of the node.
 	 * @return a Map variable.
      */
 	public Map<UUID, Path> getRoutingMap() {
@@ -143,7 +143,7 @@ public class Node extends Entity {
 	}
 
 	/**
-	 * gets the variable getNeighbours
+	 * Returns a list containing the directions neighbours exist in.
 	 * @return a list variable.
      */
 	public List<Direction> getNeighbours() {
