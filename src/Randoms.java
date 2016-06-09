@@ -1,5 +1,3 @@
-package com.javagrupp16.ou3;
-
 import java.util.List;
 import java.util.Random;
 

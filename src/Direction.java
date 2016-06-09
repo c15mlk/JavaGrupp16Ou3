@@ -1,5 +1,3 @@
-package com.javagrupp16.ou3;
-
 /**
  * Direction.java
  * Enum representing Directions such as up/down left/right

@@ -1,5 +1,3 @@
-package com.javagrupp16.ou3;
-
 import org.junit.Before;
 import org.junit.Test;
 

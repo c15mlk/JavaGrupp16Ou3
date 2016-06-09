@@ -1,7 +1,3 @@
-package com.javagrupp16.ou3.entities;
-
-import com.javagrupp16.ou3.Position;
-
 /**
  * Class that represents an entity.
  * Created by Grupp 16 on 2016-05-17.

@@ -1,5 +1,3 @@
-package com.javagrupp16.ou3;
-
 /**
  * A class that is the position of another object.
  * Created by Grupp 16 on 2016-05-17.

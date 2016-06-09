@@ -1,9 +1,3 @@
-package com.javagrupp16.ou3.entities;
-
-import com.javagrupp16.ou3.Network;
-import com.javagrupp16.ou3.Position;
-
-
 /**
  * Moveable.java
  * An abstract class representing a moveable entity.

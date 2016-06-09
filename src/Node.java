@@ -1,7 +1,3 @@
-package com.javagrupp16.ou3.entities;
-
-import com.javagrupp16.ou3.*;
-
 import java.util.*;
 
 /**
@@ -12,11 +8,11 @@ import java.util.*;
 public class Node extends Entity {
 
 	private final List<Direction> neighbours = new ArrayList<>();
-	protected final Map<UUID, Event> eventsMap = new HashMap<UUID, Event>();
+	final Map<UUID, Event> eventsMap = new HashMap<>();
 	private Map<UUID, Path> routingMap = new HashMap<>();
 	private final Map<Moveable, Moveable> moveableMap = new HashMap<>();
-	private final ArrayDeque<Runnable> runnableQue = new ArrayDeque<Runnable>();
-	protected final Map<UUID, Integer> expectedInfo = new HashMap<>();
+	private final ArrayDeque<Runnable> runnableQue = new ArrayDeque<>();
+	final Map<UUID, Integer> expectedInfo = new HashMap<>();
 
 	/**
 	 * Constructs a Node.

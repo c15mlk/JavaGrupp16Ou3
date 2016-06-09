@@ -1,10 +1,3 @@
-package com.javagrupp16.ou3.entities;
-
-import com.javagrupp16.ou3.Network;
-import com.javagrupp16.ou3.Path;
-import com.javagrupp16.ou3.Position;
-import com.javagrupp16.ou3.Randoms;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;

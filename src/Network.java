@@ -1,8 +1,3 @@
-package com.javagrupp16.ou3;
-
-import com.javagrupp16.ou3.entities.Moveable;
-import com.javagrupp16.ou3.entities.Node;
-
 import java.util.*;
 
 public class Network {

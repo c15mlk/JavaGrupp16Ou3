@@ -1,7 +1,3 @@
-package com.javagrupp16.ou3.entities;
-
-import com.javagrupp16.ou3.Network;
-import com.javagrupp16.ou3.Position;
 import org.junit.Before;
 import org.junit.Test;
 
