@@ -38,10 +38,10 @@ public class RequestTest {
 
     @Test
     public void checkSoRequestFollowsPath() throws Exception {
-        Node n = initNetwork(1,30,0);
+        Node n = initNetwork(1,20,0);
         Request request = findRequest(n);
 
-        Position pos = new Position(290,0);
+        Position pos = new Position(190,0);
 
         assert(network.hasNode(pos));
         Node n2 = getNode(pos);

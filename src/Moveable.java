@@ -17,7 +17,7 @@ public abstract class Moveable extends Entity {
 	}
 
 	/**
-	 * Abstrakt method for moving.
+	 * Abstract method for moving.
 	 * @param network the network that the object will move in.
      */
 	public abstract void move(Network network);

@@ -9,7 +9,6 @@ public class Position {
 
 	/**
 	 * Creates a position and sets its x and y value.
-	 *
 	 * @param x value for x position
 	 * @param y value for y position
 	 */

@@ -1,4 +1,3 @@
-import java.util.UUID;
 
 /**
  * A class that holds the path towards and event as well as the unique id of it.
